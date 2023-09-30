@@ -6,13 +6,7 @@ int c;
  * \param parameter m - the factorial number of which must be calculated
  * \return factorial
  */
-int factorial(int m) {
-    c = 1;
-    for (int i = 1; i <= m; i++) {
-        c = c * i;
-    }
-    return c;
-}
+int factorial(int m);
 int main()
 {
     double n, answ, e;
@@ -29,4 +23,12 @@ int main()
         e = e + 1;
     } while (e <= n);
     return 0;
+}
+int factorial(int m)
+{
+    c = 1;
+    for (int i = 1; i <= m; i++) {
+        c = c * i;
+    }
+    return c;
 }
