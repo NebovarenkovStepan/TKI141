@@ -4,7 +4,7 @@ int c;
 /**
  * \brief formula for calculating factorial
  * \param parameter m - the factorial number of which must be calculated
- * \return factorial
+ * \return factorial 
  */
 int factorial(int m);
 int main()
