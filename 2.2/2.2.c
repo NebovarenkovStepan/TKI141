@@ -24,6 +24,7 @@ int main()
     a = 1.6;
     puts("Enter x: ");
     int res = scanf_s("%lf", &x);
+    printf("res=%d\n", res);
     number_of_arguments(res);
     if (x > a) get_y_1(x, a);
     if (x == 0) printf("%s\n", "y = 3");
@@ -40,11 +41,11 @@ void number_of_arguments(int res)
 }
 void get_y_1(double x, double a)
 {
-    int y = exp(a * x) - 2.5;
+    double y = exp(a * x) - 2.5;
     printf("y=%lf\n", y);
 }
 void get_y_2(double x, double a)
 {
-    int y = a / x + sin(x);
+    double y = a / x + sin(x);
     printf("y=%lf\n", y);
 }
