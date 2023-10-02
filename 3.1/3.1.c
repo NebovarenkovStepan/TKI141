@@ -16,8 +16,10 @@ int main()
 {
     int res;
     float x, dx;
+    puts("Enter x: ");
     res = scanf_s("%f", &x);
     number_of_arguments(res);
+    puts("Enter dx: ");
     scanf_s("%f", &dx);
     number_of_arguments(res);
     do {
@@ -34,7 +36,7 @@ float answer_possibility(float x)
 }
 void number_of_arguments(int res)
 {
-    if (res != 2)
+    if (res != 1)
     {
         puts("Error!");
         abort();
