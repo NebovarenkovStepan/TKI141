@@ -12,8 +12,9 @@ void number_of_arguments(int res);
 /**
  * \brief Function that calculates the area of ​​a circle.
  * \param L is the length of the circle.
+ * \return area
  */
-void get_S(double L);
+double get_area(double L);
 /**
  * \brief Function that checks the area of ​​a circle.
  * \param L is the length of the circle.
@@ -25,7 +26,7 @@ int main()
     printf("%s", "Enter the length of the circle: ");
     int res = scanf_s("%lf", &L);
     number_of_arguments(res);
-    if (right_numb(L) == 1) get_S(L);
+    if (right_numb(L) == 1) printf("S=%lf\n", get_area);
     else printf("%s", "Error!");
     return 0;
 }
@@ -37,11 +38,11 @@ void number_of_arguments(int res)
         abort();
     }
 }
-void get_S(double L)
+double get_area(double L)
 {
     double S;
     S = ((pow(L, 2) / (4 * M_PI)));
-    printf("S=%lf\n", S);
+    return S;
 }
 bool right_numb(double L)
 {
