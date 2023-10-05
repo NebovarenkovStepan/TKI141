@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 /**
- * \brief Function calculating side
+ * @brief Function calculating side
  * \param x1 is the first x-coordinate.
  * \param y1 is the first coordinate of the game.
  * \param x2 is the second x-coordinate.
@@ -11,12 +11,12 @@
  */
 double get_distance(double x1, double y1, double x2, double y2);
 /**
- * \brief Function that calculates the possibility of input.
+ * @brief Function that calculates the possibility of input.
  * \param res is the number of arguments.
  */
 void number_of_arguments(int res);
 /**
- * \brief Function that calculates the possibility of entering coordinate data
+ * @brief Function that calculates the possibility of entering coordinate data
  * \param x1 is the first x-coordinate.
  * \param y1 is the first y-coordinate.
  * \param x2 is the second x-coordinate.

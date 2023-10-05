@@ -4,19 +4,19 @@
 #include <float.h>
 #include <stdbool.h>
 /**
- * \brief Function that calculates the possibility of input.
+ * @brief Function that calculates the possibility of input.
  * \param res is the number of arguments.
  */
 void number_of_arguments(int res);
 /**
- * \brief Function that calculates y in the first case.
+ * @brief Function that calculates y in the first case.
  * \param x is the x parameter.
  * \param a is the a parameter.
  * \return y.
  */
 double get_y_1(double x, double a);
 /**
- * \brief Function that calculates y in the second case.
+ * @brief Function that calculates y in the second case.
  * \param x is the x parameter.
  * \param a is the a parameter.
  * \return y.

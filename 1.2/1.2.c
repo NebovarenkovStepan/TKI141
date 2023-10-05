@@ -5,18 +5,18 @@
 #include <stdbool.h>
 double L, S;
 /**
- * \brief Function that calculates the possibility of input.
+ * @brief Function that calculates the possibility of input.
  * \param res is the number of arguments.
  */
 void number_of_arguments(int res);
 /**
- * \brief Function that calculates the area of ​​a circle.
+ * @brief Function that calculates the area of ​​a circle.
  * \param L is the length of the circle.
  * \return area
  */
 double get_area(double L);
 /**
- * \brief Function that checks the area of ​​a circle.
+ * @brief Function that checks the area of ​​a circle.
  * \param L is the length of the circle.
  * \return Returns a boolean value, true if L > 0 and false if L <=0.
  */

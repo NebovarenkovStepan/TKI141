@@ -3,13 +3,13 @@
 #include <math.h>
 #include <stdbool.h>
 /**
- * \brief A function that calculates the possibility of evaluating an expression for a given value of x.
+ * @brief A function that calculates the possibility of evaluating an expression for a given value of x.
  * \param x is the argument.
  * \return Return 1 - true and 0 - false
  */
 bool answer_possibility(float x);
 /**
- * \brief Function that calculates the possibility of input.
+ * @brief Function that calculates the possibility of input.
  * \param res is the number of arguments.
  */
 void number_of_arguments(int res);

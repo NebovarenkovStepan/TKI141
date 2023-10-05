@@ -2,12 +2,12 @@
 #include <math.h>
 #include <stdlib.h>
 /**
- * \brief Function that calculates the possibility of input.
+ * @brief Function that calculates the possibility of input.
  * \param res is the number of arguments.
  */
 void number_of_arguments(int res);
 /**
- * \brief Function that calculates the possibility of input.
+ * @brief Function that calculates the possibility of input.
  * \param res is the number of arguments.
  * \return pressure
  */

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 /**
- * \brief Function that calculates and outputs a
+ * @brief Function that calculates and outputs a
  * \param x is x.
  * \param y is y.
  * \param z is z.
@@ -9,7 +9,7 @@
  */
 double get_a(float x, float y, float z);
 /**
- * \brief Function calculating and outputting b
+ * @brief Function calculating and outputting b
  * \param x is x.
  * \param y is y.
  * \param z is z.
