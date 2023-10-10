@@ -1,18 +1,18 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <math.h>
 /**
- * \brief Function that calculates and outputs a
- * \param x is x.
- * \param y is y.
- * \param z is z.
+ * \brief Функция расчитывающая и выводящая a
+ * \param x это x.
+ * \param y это y.
+ * \param z это z.
  * \return a.
  */
 double get_a(float x, float y, float z);
 /**
- * \brief Function calculating and outputting b
- * \param x is x.
- * \param y is y.
- * \param z is z.
+ * \brief Функция расчитывающая и выводящая b
+ * \param x это x.
+ * \param y это y.
+ * \param z это z.
  * \return b.
  */
 double get_b(float x, float y, float z);
