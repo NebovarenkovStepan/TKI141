@@ -6,6 +6,7 @@
  * \param res количество аргументов.
  */
 void number_of_arguments(int res);
+
 /**
  * @brief Функция расчитывающая давление на дно.
  * \param q это плотность воды.
@@ -14,6 +15,7 @@ void number_of_arguments(int res);
  * \return Давление.
  */
 double get_pressure(const double q, const double g, double h);
+
 int main()
 {
 	double h;
@@ -27,11 +29,13 @@ int main()
 	printf("P=%lf\n", get_pressure(q, g, h));
 	return 0;
 }
+
 double get_pressure(double q, double g, double h)
 {
 	double pressure = q * g * h;
 	return pressure;
 }
+
 void number_of_arguments(int res)
 {
 	if (res != 1)
