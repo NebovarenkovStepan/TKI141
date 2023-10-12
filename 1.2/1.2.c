@@ -17,7 +17,7 @@ void number_of_arguments(int res);
 double get_area(double L);
 
 /**
-  * @brief Функция расчитывающая площадь круга.
+ * @brief Функция расчитывающая площадь круга.
  * \param L длинна круга.
  * \return Условное значение, true если L > 0 и false если L <=0.
  */
