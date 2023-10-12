@@ -1,21 +1,25 @@
 ﻿#include <stdio.h>
 #include <math.h>
 /**
- * \brief Функция расчитывающая и выводящая a
+ * @brief Функция расчитывающая и выводящая a
  * \param x это x.
  * \param y это y.
  * \param z это z.
  * \return a.
  */
+
 double get_a(float x, float y, float z);
+
 /**
- * \brief Функция расчитывающая и выводящая b
+ * @brief Функция расчитывающая и выводящая b
  * \param x это x.
  * \param y это y.
  * \param z это z.
  * \return b.
  */
+
 double get_b(float x, float y, float z);
+
 int main()
 {
     const double x = 1.4;
