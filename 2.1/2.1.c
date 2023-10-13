@@ -11,7 +11,7 @@ enum peremetr_or_area
 /**
  * @brief Функция показывающая какое значение надо ввести для площади или периметра.
  */
-void names_of_peremetr_nd_area();
+void names_of_peremetr_and_area();
 
 /**
  * @brief Функция расчитывающая периметр.
@@ -140,7 +140,7 @@ double get_area(double AB, double BC, double AC)
     return sqrt(p * (p - AB) * (p - BC) * (p - AC));
 }
 
-void names_of_peremetr_nd_area()
+void names_of_peremetr_and_area()
 {
     printf("Peremetr - %d\n", (int)Peremetr);
     printf("Area - %d\n", (int)Area);
