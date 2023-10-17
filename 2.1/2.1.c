@@ -1,6 +1,7 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <float.h>
 
 enum peremetr_or_area
 {
@@ -121,7 +122,7 @@ double get_distance(double x1, double y1, double x2, double y2)
 
 void coordinates(double x1, double y1, double x2, double y2)
 {
-    if (x1 == x2) if (y1 == y2)
+    if (fabs(x1-x2) <= DBL_MIN) if (fabs((y1-y2) <= DBL_MIN))
     {
         puts("Error!");
         abort();
