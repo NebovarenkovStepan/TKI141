@@ -91,7 +91,7 @@ int main()
     }
     case Area:
     {
-        double S = get_peremetr(AB, BC, AC);
+        double S = get_area(AB, BC, AC);
         puts("Area - ");
         printf("%lf", S);
         break;
