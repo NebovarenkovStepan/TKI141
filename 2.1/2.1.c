@@ -77,7 +77,7 @@ int main()
     BC = get_distance(x2, y2, x3, y3);
     AC = get_distance(x1, y1, x3, y3);
     puts("Enter peremetr or area: ");
-    names_of_peremetr_nd_area();
+    names_of_peremetr_and_area();
     res = scanf_s("%d", &number);
     enum peremetr_or_area walue = (enum peremetr_or_area)(number);
     switch (walue)
