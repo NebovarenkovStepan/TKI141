@@ -4,13 +4,19 @@
 #include <float.h>
 #include <stdbool.h>
 
-bool equal(double side1, double side2);
-
 enum perimetr_or_area
 {
     Perimetr = 1,
     Area = 2
 };
+
+/**
+ * @brief Функция проверяющая значение коордмнат.
+ * @param cord1 это первая координата.
+ * @param cord2 это вторая координата.
+ * @return True or False.
+ */
+bool equal(double cord1, double cord2);
 
 /**
  * @brief Функция считывающая и проверяющая значение.
@@ -174,7 +180,7 @@ int get_value()
     return meaning;
 }
 
-bool equal(double side1, double side2)
+bool equal(double cord1, double cord2)
 {
-    return fabs(side1 - side2) <= DBL_MIN;
+    return fabs(cord1 - cord2) <= DBL_MIN;
 }
