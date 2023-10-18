@@ -2,10 +2,13 @@
 #include <stdlib.h>
 #include <math.h>
 #include <float.h>
+#include <stdbool.h>
 
-enum peremetr_or_area
+bool equal(double side1, double side2);
+
+enum perimetr_or_area
 {
-    Peremetr = 1,
+    Perimetr = 1,
     Area = 2
 };
 
@@ -24,7 +27,7 @@ double get_coord();
 /**
  * @brief Функция показывающая какое значение надо ввести для площади или периметра.
  */
-void names_of_peremetr_and_area();
+void names_of_perimetr_and_area();
 
 /**
  * @brief Функция расчитывающая периметр.
@@ -33,7 +36,7 @@ void names_of_peremetr_and_area();
  * @param AC это третья сторона.
  * @return Возвращает значение периметра.
  */
-double get_peremetr(double AB, double BC, double AC);
+double get_perimetr(double AB, double BC, double AC);
 
 /**
  * @brief Функция расчитывающая площадь.
@@ -73,7 +76,7 @@ int main()
     puts("Enter y1: ");
     y1 = get_coord();
     printf("%s", "Enter x2: ");
-    x2= get_coord();
+    x2 = get_coord();
     puts("Enter y2: ");
     y2 = get_coord();
     coordinates(x1, y1, x2, y2);
@@ -89,13 +92,13 @@ int main()
     puts("Enter peremetr or area: ");
     names_of_peremetr_and_area();
     number = get_value();
-    enum peremetr_or_area walue = (enum peremetr_or_area)(number);
+    enum perimetr_or_area walue = (enum perimetr_or_area)(number);
     switch (walue)
     {
-    case Peremetr:
+    case Perimetr:
     {
-        double P = get_peremetr(AB, BC, AC);
-        puts("Peremetr - ");
+        double P = get_perimetr(AB, BC, AC);
+        puts("Perimetr - ");
         printf("%lf", P);
         break;
     }
@@ -122,28 +125,28 @@ double get_distance(double x1, double y1, double x2, double y2)
 
 void coordinates(double x1, double y1, double x2, double y2)
 {
-    if (fabs(x1-x2) <= DBL_MIN) if (fabs((y1-y2) <= DBL_MIN))
+    if (equal(x1, x2) && (equal(y1, y2)));
     {
         puts("Error!");
         abort();
     }
 }
 
-double get_peremetr(double AB, double BC, double AC)
+double get_perimetr(double AB, double BC, double AC)
 {
     return AB + BC + AC;
 }
 
 double get_area(double AB, double BC, double AC)
 {
-    double P = get_peremetr(AB, BC, AC);
+    double P = get_perimetr(AB, BC, AC);
     double p = P / 2;
     return sqrt(p * (p - AB) * (p - BC) * (p - AC));
 }
 
-void names_of_peremetr_and_area()
+void names_of_perimetr_and_area()
 {
-    printf("Peremetr - %d\n", (int)Peremetr);
+    printf("Perimetr - %d\n", (int)Perimetr);
     printf("Area - %d\n", (int)Area);
 }
 
@@ -169,4 +172,9 @@ int get_value()
         abort();
     }
     return meaning;
+}
+
+bool equal(double side1, double side2)
+{
+    return fabs(side1 - side2) <= DBL_MIN;
 }
