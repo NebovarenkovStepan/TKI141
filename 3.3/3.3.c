@@ -33,13 +33,11 @@ int main()
 	puts("Enter step: ");
 	step = get_value();
 	double e = pow(40, -5);
-	while ((fabs(x - a) >= DBL_MIN) && (fabs(x - b) <= DBL_MIN))
+	for (double i = a; i - b <= DBL_MIN; i += step)
 	{
-		printf("%lf %lf %lf\n", x, function(x), summ(x, e));
-		x = x + step;
-		printf("%lf", x);
+		printf("%lf\t%lf\t%lf\t\n", i, function(i), summ(i, e));
 	}
-	return 0;
+
 }
 
 double function(double x)
@@ -52,11 +50,12 @@ double summ(double x, double e)
 	double sum = 0;
 	int i = 1;
 	double s_i = -(pow((1 + x), 2) * i / (i + 1));
-	while (fabs(s_i - e) <= DBL_MIN)
+	sum += s_i;
+	while (fabs(s_i - e) >= DBL_MIN)
 	{
-		sum += s_i;
 		i++;
 		s_i *= -(pow((1 + x), 2) * i / (i + 1));
+		sum += s_i;
 	}
 	return sum;
 }
