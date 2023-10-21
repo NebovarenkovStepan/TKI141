@@ -42,7 +42,7 @@ int main()
 
 double function(double x)
 {
-	return log10(1 / (2 + 2 * x + pow(x, 2)));
+	return log(1 / (2 + 2 * x + pow(x, 2)));
 }
 
 double summ(double x, double e)
