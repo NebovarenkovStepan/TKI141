@@ -2,20 +2,21 @@
 #include <math.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <float.h>
 
 /**
- * @brief Функция расчитывающая 1-ый случай.
- * @param x это x.
- * @param a это a.
- * @return y.
+ * @brief Функция расчитывающая значение y при x > a.
+ * @param x Входная величина.
+ * @param a Входная величина.
+ * @return Значение функции.
  */
 double get_y_1(double x, double a);
 
 /**
- * @brief Функция расчитывающая 2-ой случай.
- * @param x это x.
- * @param a это a.
- * @return y.
+ * @brief Функция расчитывающая значение y при x < a.
+ * @param x Входная величина.
+ * @param a Входная величина.
+ * @return Значение функции.
  */
 double get_y_2(double x, double a);
 
@@ -25,21 +26,37 @@ double get_y_2(double x, double a);
  */
 double get_value();
 
+
+/**
+ * @brief Основная функция  программе.
+ * @return 0 если процесс завершился без ошибок.
+ */
 int main()
 {
     double x;
     const double a = 1.6;
     puts("Enter x: ");
     x = get_value();
-    if (x > a) printf("y=%lf\n", get_y_1(x, a));
-    else if (x == 0) printf("%s\n", "y = 3");
-    else if (x < a) printf("y=%lf\n", get_y_2(x, a));
+    double result = 0;
+    if (x > a) // x строго больше а
+    {
+        result = get_y_1(x, a);
+    }
+    else if (x == 0)
+    {
+        result = 3;
+    }
+    else if (x < a) // x строго меньше а
+    {
+        result = get_y_2(x, a);
+    }
     else
     {
         errno = EIO;
         perror("Wrong value");
         return 1;
     }
+    printf("%lf", "Результат: ", result);
     return 0;
 }
 
