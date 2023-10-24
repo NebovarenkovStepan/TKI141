@@ -42,7 +42,7 @@ int main()
     {
         result = get_y_1(x, a);
     }
-    else if (x == 0)
+    else if (fabs(x) <= DBL_MIN)
     {
         result = 3;
     }
