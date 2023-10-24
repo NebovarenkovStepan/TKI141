@@ -11,17 +11,17 @@
 double factorial(double m);
 
 /**
- * @brief Функция принимающая и проверяющая значение на ввод.
- * @return Значение.
- */
-double get_value();
+* @brief Функция принимающая и проверяющая значение на ввод.
+* @param message - текст сообщения для пользователя.
+* @return Значение.
+*/
+double get_value(const char* message);
 
 int main()
 {
     double n, answ;
     answ = 0;
-    printf("%s", "Enter n: ");
-    n = get_value();
+    n = get_value("Enter n: ");
     for (int i = 1; i <= n; i++)
     {
         answ = answ + (pow(-1, i) * (1 / (factorial(i) * factorial(i + 1))));
@@ -39,9 +39,10 @@ double factorial(double m)
     }
 }
 
-double get_value()
+double get_value(const char* message)
 {
     double a;
+    printf("%s", message);
     int res = scanf_s("%lf", &a);
     if (res != 1)
     {
