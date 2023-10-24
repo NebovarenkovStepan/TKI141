@@ -17,9 +17,10 @@ bool possibility(double a, double b, double c, double d, double r);
 
 /**
 * @brief Функция принимающая и проверяющая значение на ввод.
+* @param message - текст сообщения для пользователя.
 * @return Значение.
 */
-double get_value();
+double get_value(const char* message);
 
 /**
 * @brief Функция получения максимально возможной высоты в круге.
@@ -36,16 +37,11 @@ double get_h(double r, double side);
 int main()
 {
 	double r, a, b, c, d;
-	puts("Enter r: ");
-	r = get_value();
-	puts("Enter a: ");
-	a = get_value();
-	puts("Enter b: ");
-	b = get_value();
-	puts("Enter c: ");
-	c = get_value();
-	puts("Enter d: ");
-	d = get_value();
+	r = get_value("Enter r: ");
+	a = get_value("Enter a: ");
+	b = get_value("Enter b: ");
+	c = get_value("Enter c: ");
+	d = get_value("Enter d: ");
 	if (possibility(a, b, c, d, r))
 	{
 		puts("Yes");
@@ -70,9 +66,10 @@ bool possibility(double a, double b, double c, double d, double r)
 	return (h_summ >= other_sides);
 }
 
-double get_value()
+double get_value(const char* message)
 {
 	double a;
+	printf("%s", message);
 	int res = scanf_s("%lf", &a);
 	if (res != 1)
 	{
