@@ -5,15 +5,11 @@
 #include <errno.h>
 
 /**
- * @brief Функция принимающая и проверяющая значение шага.
- * @return Значение.
- */
-double get_step();
-/**
- * @brief Функция принимающая и проверяющая значение на ввод.
- * @return Значение.
- */
-double get_value();
+* @brief Функция принимающая и проверяющая значение на ввод.
+* @param message - текст сообщения для пользователя.
+* @return Значение.
+*/
+double get_step(const char* message);
 
 /**
  * @brief Функция возвращающая значение функции в данной точке.
@@ -38,7 +34,6 @@ int main()
 	double const a = 0.1;
 	double x = a;
 	double const b = 0.8;
-	puts("Enter step: ");
 	double step = get_step();
 	double e = pow(40, -5);
 	for (double i = a; i - b <= DBL_MIN; i += step)
@@ -67,22 +62,10 @@ double summ(double x, double e)
 	return sum;
 }
 
-double get_value()
+double get_step(const char* message)
 {
 	double a;
-	int res = scanf_s("%lf", &a);
-	if (res != 1)
-	{
-		errno = EIO;
-		perror("Wrong value");
-		abort();
-	}
-	return a;
-}
-
-double get_step()
-{
-	double a;
+	printf("%s", message);
 	int res = scanf_s("%lf", &a);
 	if (res != 1 || a <= 0)
 	{
