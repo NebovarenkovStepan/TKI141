@@ -27,7 +27,7 @@ int main()
     while ((x - x_finish) <= DBL_MIN)
     {
         double y = result(x);
-        printf("%0.2lf\n", y);
+        printf("%lf\t%0.2lf\t\n", x, y);
         x += dx;
     }
     return 0;
