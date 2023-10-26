@@ -28,14 +28,16 @@ int main()
     }
     printf("%lf\n", answ);
 }
+
 double factorial(double m)
 {
-    if (m >= 0 && m <= 1) return 1;
+    if (m >= 0 && m <= 1)
+    {
+        return 1;
+    }
     else
     {
-        do {
-            return factorial(m - 1) * m;
-        } while (m > 1);
+        return -(pow(m, 2) - 3 * m - 2);
     }
 }
 
