@@ -55,6 +55,10 @@ enum random_or_keybord
  */
 void names_of_random_and_keyboard();
 
+/**
+ * @brief Основная функция, точка входа в программу.
+ * @return Возвращает 0, если програма завершилась без ошибок
+ */
 int main()
 {
     unsigned int ttime = time(NULL);
