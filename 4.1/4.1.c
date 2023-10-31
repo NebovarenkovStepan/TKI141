@@ -4,12 +4,37 @@
 #include <float.h>
 #include <errno.h>
 #include <time.h>
+
 /**
-* @brief Функция принимающая и провер¤ющая значение на ввод.
-* @param message - текст сообщения для пользователя.
-* @return Значение размера массива.
+* @brief Функция находящая первый минимальный элемент массива.
+* @param size - размер массива.
+* @param array - массив.
+* @return Минимальный элемент.
 */
-int get_size(const char* message);
+int min_element(size_t size, int* array);
+
+/**
+* @brief Функция заполняющая массив.
+* @param size - размер массива.
+* @param array - массив.
+* @return 1 если все хорошо.
+*/
+int fill_array(size_t size, int* array);
+
+/**
+* @brief Функция заполняющая массив рандомными числами.
+* @param size - размер массива.
+* @param array - массив.
+* @return 1 если все хорошо.
+*/
+int fill_random(size_t size, int* array);
+
+/**
+* @brief Функция выводящая заполненный массив.
+* @param size - размер массива.
+* * @param array - массив.
+*/
+int print_array(size_t size, int* array);
 
 /**
 * @brief Функция принимающая и провер¤ющая значение на ввод.
@@ -22,9 +47,10 @@ int get_value(const char* message);
 * @brief Функция вычисляющая максимальный отрицательный элемент массива.
 * @param size - размер массива.
 * @param array - массив.
+* @parm min_e первый минимальный элемент.
 * @return максимальный отрицательный элемент массива.
 */
-int get_max_element(size_t size, int array[]);
+int get_max_element(size_t size, int* array, int min_e);
 
 /**
 * @brief Функция считающая количество положительных элементов больших по модулю числу A, которое мы задаем с клавиатуры.
@@ -33,7 +59,7 @@ int get_max_element(size_t size, int array[]);
 * @param a - число A, которое мы задаем с клаиатуры.
 * @return количество элементов.
 */
-int second_point(size_t size, int array[], int a);
+int second_point(size_t size, int* array, int a);
 
 /**
 * @brief Функция находящая номер первой пары соседних элементов, сумма которых меньше заданного числа.
@@ -42,7 +68,7 @@ int second_point(size_t size, int array[], int a);
 * @param a - число A, которое мы задаем с клаиатуры.
 * @return номер первой пары.
 */
-int third_point(size_t size, int array[], int a);
+int third_point(size_t size, int* array, int a);
 
 enum random_or_keybord
 {
@@ -61,9 +87,13 @@ void names_of_random_and_keyboard();
  */
 int main()
 {
-    unsigned int ttime = time(NULL);
-    srand(ttime);
-	size_t size = get_size("Enter array size: ");
+	size_t size = get_value("Enter array size: ");
+    if (size <= 0)
+    {
+        errno = EIO;
+        perror("Wrong value");
+        abort();
+    }
 	int* array = (int*)malloc(size * sizeof(int));
 	if (array == NULL)
 	{
@@ -78,15 +108,10 @@ int main()
     {
     case Keyboard:
     {
-        for (int i = 0; i < size; i++)
-        {
-            array[i] = get_value("Enter number from -10 to 10: ");
-        }
-        array[1] = get_max_element(size, array);
-        for (int i = 0; i < size; i++)
-        {
-            printf("%d\t%d\n", i, array[i]);
-        }
+        fill_array(size, array);
+        int min_e = min_element(size, array);
+        array[1] = get_max_element(size, array, min_e);
+        print_array(size, array);
         int a = get_value("Enter A: ");
         puts("Answer for 2: ");
         int counter = second_point(size, array, a);
@@ -98,15 +123,10 @@ int main()
     }
     case Random:
     {
-        for (int i = 0; i < size; i++)
-        {
-            array[i] = -10 + rand() % 19;
-        }
-        array[1] = get_max_element(size, array);
-        for (int i = 0; i < size; i++)
-        {
-            printf("%d\t%d\n", i, array[i]);
-        }
+        fill_random(size, array);
+        int min_e = min_element(size, array);
+        array[1] = get_max_element(size, array, min_e);
+        print_array(size, array);
         int a = get_value("Enter A: ");
         puts("Answer for 2: ");
         int counter = second_point(size, array, a);
@@ -125,26 +145,12 @@ int main()
     return 0;
 }
 
-int get_size(const char* message)
-{
-	int a;
-	printf("%s", message);
-	int res = scanf_s("%d", &a);
-	if (res != 1 || a <= 0)
-	{
-		errno = EIO;
-		perror("Wrong value");
-		abort();
-	}
-	return a;
-}
-
 int get_value(const char* message)
 {
 	int a;
 	printf("%s", message);
 	int res = scanf_s("%d", &a);
-	if (res != 1 || 10 <= a <= -10)
+	if (res != 1)
 	{
 		errno = EIO;
 		perror("Wrong value");
@@ -159,18 +165,20 @@ void names_of_random_and_keyboard()
 	printf("Random - %d\n", (int)Random);
 }
 
-int get_max_element(size_t size, int array[])
+int get_max_element(size_t size, int* array, int min_e)
 {
-    int max_element = -11;
-    for (int i = 0; i < size; i++)
+    int amount_max_elements = 0;
+    int max_element = min_e;
+    for (size_t i = 0; i < size; i++)
     {
         int c = array[i];
-        if ( c < 0 && c > max_element)
+        if ( c < 0)
         {
-            max_element = array[i];
+            max_element = max(array[i], max_element);
+            amount_max_elements++;
         }
     }
-    if (max_element <= -11)
+    if (amount_max_elements == 0)
     {
             errno = EIO;
             perror("Wrong array");
@@ -182,10 +190,10 @@ int get_max_element(size_t size, int array[])
     }
 }
 
-int second_point(size_t size, int array[], int a)
+int second_point(size_t size, int* array, int a)
 {
     int counter = 0;
-    for (int i = 0; i <= size; i++)
+    for (size_t i = 0; i <= size; i++)
     {
         int c = array[i];
         if ( c > 0 && c < abs(a))
@@ -196,14 +204,59 @@ int second_point(size_t size, int array[], int a)
     return counter;
 }
 
-int third_point(size_t size, int array[], int a)
+int third_point(size_t size, int* array, int a)
 {
     int pair_counter = 0;
-    for (int i = 0; i < size - 1; i++)
+    for (size_t i = 0; i < size - 1; i++)
     {
         pair_counter++;
         if (array[i] + array[i + 1] < a) 
         continue;
     }
     return pair_counter;
+}
+int fill_array(size_t size, int* array)
+{
+    for (size_t i = 0; i < size; i++)
+    {
+        int c = get_value("Enter number from -10 to 10: ");
+        array[i] = c ;
+    }
+    return 1;
+}
+
+int print_array(size_t size, int* array)
+{
+    for (size_t i = 0; i < size; i++)
+    {
+        printf("%Iu\t%d\n", i, array[i]);
+    }
+    return 1;
+}
+
+int fill_random(size_t size, int* array)
+{
+    unsigned int ttime = time(NULL);
+    srand(ttime);
+    for (size_t i = 0; i < size; i++)
+    {
+        array[i] = -10 + rand() % 19;
+    }
+    return 1;
+}
+
+int min_element(size_t size, int* array)
+{
+    for (size_t i = 0; i < size; i++)
+    {
+        int c = array[i];
+        if (c < 0)
+        {
+            int min_element = c;
+        }
+        return min_element;
+    }
+    errno = EIO;
+    perror("Wrong array");
+    abort();
 }
