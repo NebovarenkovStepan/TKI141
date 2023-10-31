@@ -17,6 +17,10 @@ double factorial(double m);
 */
 double get_value(const char* message);
 
+/**
+ * @brief Основная функция в программе.
+ * @return 0 если процесс завершился без ошибок.
+ */
 int main()
 {
     double n, answ;
