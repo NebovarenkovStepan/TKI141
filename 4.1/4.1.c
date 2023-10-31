@@ -220,6 +220,12 @@ int fill_array(size_t size, int* array)
     for (size_t i = 0; i < size; i++)
     {
         int c = get_value("Enter number from -10 to 10: ");
+        if (c < -10 || c > 10)
+        {
+            errno = EIO;
+            perror("Wrong array");
+            abort();
+        }
         array[i] = c ;
     }
     return 1;
