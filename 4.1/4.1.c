@@ -11,7 +11,7 @@
 * @param array - массив.
 * @return Минимальный элемент.
 */
-int min_element(size_t size, int* array);
+int first_negtive(size_t size, int* array);
 
 /**
 * @brief Функция заполняющая массив.
@@ -109,7 +109,7 @@ int main()
     case Keyboard:
     {
         fill_array(size, array);
-        int min_e = min_element(size, array);
+        int min_e = first_negtive(size, array);
         array[1] = get_max_element(size, array, min_e);
         print_array(size, array);
         int a = get_value("Enter A: ");
@@ -124,7 +124,7 @@ int main()
     case Random:
     {
         fill_random(size, array);
-        int min_e = min_element(size, array);
+        int min_e = first_negative(size, array);
         array[1] = get_max_element(size, array, min_e);
         print_array(size, array);
         int a = get_value("Enter A: ");
@@ -251,7 +251,7 @@ int fill_random(size_t size, int* array)
     return 1;
 }
 
-int min_element(size_t size, int* array)
+int first_negtive(size_t size, int* array)
 {
     for (size_t i = 0; i < size; i++)
     {
@@ -259,8 +259,9 @@ int min_element(size_t size, int* array)
         if (c < 0)
         {
             int min_element = c;
+            return min_element;
         }
-        return min_element;
+        
     }
     errno = EIO;
     perror("Wrong array");
