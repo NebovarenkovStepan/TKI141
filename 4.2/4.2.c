@@ -4,6 +4,7 @@
 #include <float.h>
 #include <errno.h>
 #include <time.h>
+#include <string.h>
 
 /**
 * @brief Функция заполняющая массив.
@@ -27,7 +28,7 @@ int fill_random(size_t size, int* array);
 * @param array - массив.
 * @return 1 если функци¤ завершена без ошибок.
 */
-int print_array(const size_t size, const int* array);
+int print_array(size_t size,int* array);
 
 /**
 * @brief Функция принимающая и проверяющая значение на ввод.
@@ -52,12 +53,6 @@ int get_max_element(size_t size, int* array);
 */
 int change(size_t size, int* array);
 
-enum random_or_keybord
-{
-	Keyboard = 1,
-	Random = 2
-};
-
 /**
  * @brief Функция показывающая какое значение надо ввести дл¤ рандома или ввода с клаиатуры.
  */
@@ -70,6 +65,12 @@ void names_of_random_and_keyboard();
  * @return 1 если функция завершена без ошибок.
  */
 int incret_max_element(size_t size, int* array, int max_element);
+
+enum random_or_keybord
+{
+	Keyboard = 1,
+	Random = 2
+};
 
 /**
  * @brief Основная функция, точка входа в программу.
@@ -100,17 +101,29 @@ int main()
 	case Keyboard:
 	{
 		fill_array(size, array);
+		print_array(size, array);
+		printf("%s\n", "----");
 		change(size, array);
-		int max_element = get_max_element;
-
+		print_array(size, array);
+		printf("%s\n", "----");
+		int max_element = get_max_element(size, array);
+		incret_max_element(size, array, max_element);
+		print_array(size+1, array);
+		printf("%s\n", "----");
 		break;
 	}
 	case Random:
 	{
 		fill_random(size, array);
+		print_array(size, array);
+		printf("%s\n", "----");
 		change(size, array);
-		int max_element = get_max_element;
-
+		print_array(size, array);
+		printf("%s\n", "----");
+		int max_element = get_max_element(size, array);
+		incret_max_element(size, array, max_element);
+		print_array(size, array);
+		printf("%s\n", "----");
 		break;
 	}
 	default:
@@ -158,13 +171,12 @@ int fill_array(size_t size, int* array)
 	return 1;
 }
 
-int print_array(const size_t size, const int* array)
+int print_array(size_t size, int* array)
 {
 	for (size_t i = 0; i < size; i++)
 	{
 		printf("%Iu\t%d\n", i, array[i]);
 	}
-	free(array);
 	return 1;
 }
 
@@ -181,7 +193,7 @@ int fill_random(size_t size, int* array)
 
 int change(size_t size, int* array)
 {
-	for (size_t i = size; i > 0; --i)
+	for (size_t i = size-1; i > 0; i--)
 	{
 		if (array[i] > 0)
 		{
@@ -189,6 +201,7 @@ int change(size_t size, int* array)
 			return 1;
 		}
 	}
+	return 1; // с free() оно не работает.
 }
 
 int get_max_element(size_t size, int* array)
@@ -205,19 +218,23 @@ int get_max_element(size_t size, int* array)
 
 int incret_max_element(size_t size, int* array, int max_element)
 {
+	size_t counter_1 = 0;
 	for (size_t i = 0; i < size; i++)
 	{
-		char c = (char)(array[i]);
+		const char str1[3] = { (char)(array[i]) };
 		size_t position = i;
-		if (strstr(c,"1") != NULL)
+		const char str2[3] = { (char)(1) };
+		char* istr = strstr(str1, str2);
+		if (istr != NULL)
 		{
-			array = realoloc(array, (int*)malloc((size + 1) * sizeof(int)));
-			for (size_t i = size - 1; i >= position - 1; i--)
+			counter_1++;
+			array = realloc(array, (size_t)((size+counter_1) * sizeof(int)));
+			for (size_t i = size-1; i >= position-1; i--)
 			{
-				array[i + 1] = array[i];
+				array[i+1] = array[i];
 			}
-			array[position - 1] = max_element;
+			array[position-1] = max_element;
 		}
 	}
+	return 1;
 }
-
