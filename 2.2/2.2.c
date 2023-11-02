@@ -56,7 +56,8 @@ int main()
         perror("Wrong value");
         return 1;
     }
-    printf("%lf", "Результат: ", result);
+    puts("Результат: ");
+    printf("%lf", result);
     return 0;
 }
 
