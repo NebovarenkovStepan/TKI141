@@ -34,7 +34,7 @@ int fill_random(size_t size, int* array);
 * @param size - размер массива.
 * * @param array - массив.
 */
-int print_array(size_t size, int* array);
+int print_array(const size_t size, const int* array);
 
 /**
 * @brief Функция принимающая и провер¤ющая значение на ввод.
