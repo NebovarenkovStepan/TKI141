@@ -11,7 +11,7 @@
 * @param array - массив.
 * @return Минимальный элемент.
 */
-int first_negtive(size_t size, int* array);
+int first_negative(size_t size, int* array);
 
 /**
 * @brief Функция заполняющая массив.
@@ -87,13 +87,14 @@ void names_of_random_and_keyboard();
  */
 int main()
 {
-	size_t size = get_value("Enter array size: ");
-    if (size <= 0)
+	int int_size = get_value("Enter array size: ");
+    if (int_size <= 0)
     {
         errno = EIO;
         perror("Wrong value");
         abort();
     }
+    size_t size = (size_t)(int_size);
 	int* array = (int*)malloc(size * sizeof(int));
 	if (array == NULL)
 	{
@@ -109,7 +110,7 @@ int main()
     case Keyboard:
     {
         fill_array(size, array);
-        int min_e = first_negtive(size, array);
+        int min_e = first_negative(size, array);
         array[1] = get_max_element(size, array, min_e);
         print_array(size, array);
         int a = get_value("Enter A: ");
@@ -231,12 +232,13 @@ int fill_array(size_t size, int* array)
     return 1;
 }
 
-int print_array(size_t size, int* array)
+int print_array(const size_t size, const int* array)
 {
     for (size_t i = 0; i < size; i++)
     {
         printf("%Iu\t%d\n", i, array[i]);
     }
+    free(array);
     return 1;
 }
 
@@ -251,7 +253,7 @@ int fill_random(size_t size, int* array)
     return 1;
 }
 
-int first_negtive(size_t size, int* array)
+int first_negative(size_t size, int* array)
 {
     for (size_t i = 0; i < size; i++)
     {
