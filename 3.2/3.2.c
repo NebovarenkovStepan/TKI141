@@ -28,9 +28,10 @@ int main()
     n = get_value("Enter n: ");
     for (int i = 1; i <= n; i++)
     {
-        answ = answ + (pow(-1, i) * (1 / (factorial(i) * factorial(i + 1))));
+        answ = answ +  factorial(i);
     }
     printf("%lf\n", answ);
+    return 0;
 }
 
 double factorial(double m)
@@ -41,7 +42,7 @@ double factorial(double m)
     }
     else
     {
-        return -(pow(m, 2) - 3 * m - 2);
+        return -(1/(m+2)*(m+1));
     }
 }
 
