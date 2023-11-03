@@ -6,12 +6,12 @@
 #include <time.h>
 
 /**
-* @brief Функция находящая первый минимальный элемент массива.
+* @brief Функция находящая первый отрицательный элемент массива.
 * @param size - размер массива.
 * @param array - массив.
 * @return Минимальный элемент.
 */
-int first_negative(size_t size, int* array);
+int first_negative(const size_t size, int* array);
 
 /**
 * @brief Функция заполняющая массив.
@@ -19,7 +19,7 @@ int first_negative(size_t size, int* array);
 * @param array - массив.
 * @return 1 если все хорошо.
 */
-int fill_array(size_t size, int* array);
+int fill_array(const size_t size, int* array);
 
 /**
 * @brief Функция заполняющая массив рандомными числами.
@@ -27,12 +27,12 @@ int fill_array(size_t size, int* array);
 * @param array - массив.
 * @return 1 если все хорошо.
 */
-int fill_random(size_t size, int* array);
+int fill_random(const size_t size, int* array);
 
 /**
 * @brief Функция выводящая заполненный массив.
 * @param size - размер массива.
-* * @param array - массив.
+* @param array - массив.
 */
 int print_array(const size_t size, const int* array);
 
@@ -50,7 +50,7 @@ int get_value(const char* message);
 * @parm min_e первый минимальный элемент.
 * @return максимальный отрицательный элемент массива.
 */
-int get_max_element(size_t size, int* array, int min_e);
+int get_max_element(const size_t size, int* array, int min_e);
 
 /**
 * @brief Функция считающая количество положительных элементов больших по модулю числу A, которое мы задаем с клавиатуры.
@@ -59,7 +59,7 @@ int get_max_element(size_t size, int* array, int min_e);
 * @param a - число A, которое мы задаем с клаиатуры.
 * @return количество элементов.
 */
-int second_point(size_t size, int* array, int a);
+int second_point(const size_t size, int* array, int a);
 
 /**
 * @brief Функция находящая номер первой пары соседних элементов, сумма которых меньше заданного числа.
@@ -68,7 +68,7 @@ int second_point(size_t size, int* array, int a);
 * @param a - число A, которое мы задаем с клаиатуры.
 * @return номер первой пары.
 */
-int third_point(size_t size, int* array, int a);
+int third_point(const size_t size, int* array, int a);
 
 enum random_or_keybord
 {
@@ -166,7 +166,7 @@ void names_of_random_and_keyboard()
 	printf("Random - %d\n", (int)Random);
 }
 
-int get_max_element(size_t size, int* array, int min_e)
+int get_max_element(const size_t size, int* array, int min_e)
 {
     int amount_max_elements = 0;
     int max_element = min_e;
@@ -191,7 +191,7 @@ int get_max_element(size_t size, int* array, int min_e)
     }
 }
 
-int second_point(size_t size, int* array, int a)
+int second_point(const size_t size, int* array, int a)
 {
     int counter = 0;
     for (size_t i = 0; i <= size; i++)
@@ -205,7 +205,7 @@ int second_point(size_t size, int* array, int a)
     return counter;
 }
 
-int third_point(size_t size, int* array, int a)
+int third_point(const size_t size, int* array, int a)
 {
     int pair_counter = 0;
     for (size_t i = 0; i < size - 1; i++)
@@ -216,7 +216,7 @@ int third_point(size_t size, int* array, int a)
     }
     return pair_counter;
 }
-int fill_array(size_t size, int* array)
+int fill_array(const size_t size, int* array)
 {
     for (size_t i = 0; i < size; i++)
     {
@@ -242,18 +242,18 @@ int print_array(const size_t size, const int* array)
     return 1;
 }
 
-int fill_random(size_t size, int* array)
+int fill_random(const size_t size, int* array)
 {
     unsigned int ttime = time(NULL);
     srand(ttime);
     for (size_t i = 0; i < size; i++)
     {
-        array[i] = -10 + rand() % 19;
+        array[i] = -10 + rand() % 21;
     }
     return 1;
 }
 
-int first_negative(size_t size, int* array)
+int first_negative(const size_t size, int* array)
 {
     for (size_t i = 0; i < size; i++)
     {
