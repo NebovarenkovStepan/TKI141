@@ -5,6 +5,11 @@
 #include <errno.h>
 #include <time.h>
 #include <string.h>
+#include <stdbool.h>
+
+bool is_one(int number);
+
+int get_wider_array(size_t size, int* array, size_t number);
 
 /**
 * @brief Функция заполняющая массив.
@@ -107,6 +112,7 @@ int main()
 		print_array(size, array);
 		printf("%s\n", "----");
 		int max_element = get_max_element(size, array);
+
 		incret_max_element(size, array, max_element);
 		print_array(size+1, array);
 		printf("%s\n", "----");
@@ -201,7 +207,7 @@ int change(size_t size, int* array)
 			return 1;
 		}
 	}
-	return 1; // с free() оно не работает.
+	return 1;
 }
 
 int get_max_element(size_t size, int* array)
@@ -221,20 +227,39 @@ int incret_max_element(size_t size, int* array, int max_element)
 	size_t counter_1 = 0;
 	for (size_t i = 0; i < size; i++)
 	{
-		const char str1[3] = { (char)(array[i]) };
 		size_t position = i;
-		const char str2[3] = { (char)(1) };
-		char* istr = strstr(str1, str2);
-		if (istr != NULL)
+		if (is_one(array[i]))
 		{
 			counter_1++;
-			array = realloc(array, (size_t)((size+counter_1) * sizeof(int)));
+			get_wider_array(size, array, counter_1);
 			for (size_t i = size-1; i >= position-1; i--)
 			{
 				array[i+1] = array[i];
 			}
-			array[position-1] = max_element;
+			array[position] = max_element;
 		}
 	}
+	return 1;
+}
+
+bool is_one(int number)
+{
+	number = abs(number);
+	while (number > 0)
+	{
+		if (number % 10 == 1)
+		{
+			return true;
+		}
+		number = number / 10;
+	}
+	return false;
+}
+
+int get_wider_array(size_t size, int* array, size_t number)
+{
+	size = size + number;
+	arr = realloc(array, (4 * 4));
+	size = size + number;
 	return 1;
 }
