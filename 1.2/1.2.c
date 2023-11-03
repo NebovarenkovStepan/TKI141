@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <errno.h>
 #include <float.h>
 
@@ -15,10 +14,10 @@ double get_value(const char* message);
 
 /**
  * @brief Функция расчитывающая площадь круга.
- * \param l - длинна круга.
+ * \param length - длинна круга.
  * \return Площадь.
  */
-double get_area(double l);
+double get_area(double length);
 
 /**
 * @brief Основная функция в программе.
@@ -26,30 +25,30 @@ double get_area(double l);
 */
 int main()
 {
-    double l = get_value("Enter the length of the circle: ");
+    double length = get_value("Enter the length of the circle: ");
     puts("Area: ");
-    printf("%lf", get_area(l));
+    printf("%lf", get_area(length));
     return 0;
 }
 
 
 
-double get_area(double l)
+double get_area(double length)
 {
-    double S = ((pow(l, 2) / (4 * M_PI)));
-    return S;
+    double area = ((pow(length, 2) / (4 * M_PI)));
+    return area;
 }
 
 double get_value(const char* message)
 {
-    double a;
+    double value;
     printf("%s", message);
-    int res = scanf_s("%lf", &a);
-    if (res != 1 || a <= DBL_MIN)
+    int res = scanf_s("%lf", &value);
+    if (res != 1 || value <= DBL_MIN)
     {
         errno = EIO;
         perror("Wrong value");
         abort();
     }
-    return a;
+    return value;
 }
