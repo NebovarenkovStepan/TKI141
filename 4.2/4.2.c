@@ -7,9 +7,36 @@
 #include <string.h>
 #include <stdbool.h>
 
+/**
+* @brief Функция, считающая количество единиц в массиве для его расширения массив.
+* @param size - размер массива.
+* @param array - массив.
+* @return 1 если все хорошо.
+*/
+int counter_1(size_t size, int* array);
+
+/**
+* @brief Функция заполняющая массив m.
+* @param size - размер массива.
+* @param array - массив.
+* @return 1 если все хорошо.
+*/
+int fill_array_m(size_t size, int* array, int* array_m);
+
+/**
+* @brief Функция, проверяющая содержит ли число единицу.
+* @param number - число которое поступает на ввод
+* @return 1 если все хорошо.
+*/
 bool is_one(int number);
 
-int get_wider_array(size_t size, int* array, size_t number);
+/**
+* @brief Функция, расширяющая массив.
+* @param size - размер массива.
+* @param array - массив.
+* @return 1 если все хорошо.
+*/
+int get_wider_array(size_t size, int* array);
 
 /**
 * @brief Функция заполняющая массив.
@@ -59,7 +86,7 @@ int get_max_element(size_t size, int* array);
 int change(size_t size, int* array);
 
 /**
- * @brief Функция показывающая какое значение надо ввести дл¤ рандома или ввода с клаиатуры.
+ * @brief Функция, показывающая какое значение надо ввести дл¤ рандома или ввода с клаиатуры.
  */
 void names_of_random_and_keyboard();
 
@@ -112,10 +139,14 @@ int main()
 		print_array(size, array);
 		printf("%s\n", "----");
 		int max_element = get_max_element(size, array);
-
+		size += counter_1(size, array);
+		get_wider_array(size, array, counter_1);
 		incret_max_element(size, array, max_element);
-		print_array(size+1, array);
+		print_array(size, array);
 		printf("%s\n", "----");
+		int* array_m = (int*)malloc(size * sizeof(int));
+		fill_array_m(size,array,array_m);
+		print_array(size, array_m);
 		break;
 	}
 	case Random:
@@ -127,9 +158,14 @@ int main()
 		print_array(size, array);
 		printf("%s\n", "----");
 		int max_element = get_max_element(size, array);
+		size += counter_1(size, array);
+		get_wider_array(size, array, counter_1);
 		incret_max_element(size, array, max_element);
 		print_array(size, array);
 		printf("%s\n", "----");
+		int* array_m = (int*)malloc(size * sizeof(int));
+		fill_array_m(size, array, array_m);
+		print_array(size, array_m);
 		break;
 	}
 	default:
@@ -188,11 +224,11 @@ int print_array(size_t size, int* array)
 
 int fill_random(size_t size, int* array)
 {
-	unsigned int ttime = time(NULL);
+	unsigned int ttime =  (unsigned int)(time(NULL));
 	srand(ttime);
 	for (size_t i = 0; i < size; i++)
 	{
-		array[i] = -10 + rand() % 19;
+		array[i] = -10 + rand() % 21;
 	}
 	return 1;
 }
@@ -225,19 +261,22 @@ int get_max_element(size_t size, int* array)
 int incret_max_element(size_t size, int* array, int max_element)
 {
 	size_t counter_1 = 0;
-	for (size_t i = 0; i < size; i++)
+	int i = 0;
+	while (i < size)
 	{
 		size_t position = i;
+		int number = array[i];
 		if (is_one(array[i]))
 		{
-			counter_1++;
-			get_wider_array(size, array, counter_1);
-			for (size_t i = size-1; i >= position-1; i--)
+			for (size_t i = size - 1; i > position; i--)
 			{
-				array[i+1] = array[i];
+				array[i + 1] = array[i];
 			}
+			array[position+1] = number;
+			i++;
 			array[position] = max_element;
 		}
+		i++;
 	}
 	return 1;
 }
@@ -256,10 +295,42 @@ bool is_one(int number)
 	return false;
 }
 
-int get_wider_array(size_t size, int* array, size_t number)
+int get_wider_array(size_t size, int* array)
 {
-	size = size + number;
-	arr = realloc(array, (4 * 4));
-	size = size + number;
+	array = realloc(array, size * sizeof(int));
+	return 1;
+}
+
+int counter_1(size_t size, int* array)
+{
+	int counter_1 = 0;
+	for (size_t i = 0; i < size; i++)
+	{
+		size_t position = i;
+		if (is_one(array[i]))
+		{
+			counter_1++;
+		}
+	}
+	return counter_1;
+}
+
+int fill_array_m(size_t size, int* array, int* array_m)
+{
+	int counter = 0;
+	for (size_t i = 0; i < size; i++)
+	{
+		counter++;
+		if (counter == 3)
+		{
+			counter = 0;
+			array_m[i] = i * array[i];
+		}
+		else
+		{
+			array_m[i] = -1 * array[i]*(i+1);
+		}
+
+	}
 	return 1;
 }
