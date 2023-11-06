@@ -11,7 +11,7 @@
 * @param array - массив.
 * @return Минимальный элемент.
 */
-int first_negative(const size_t size, int* array);
+int first_negative(const size_t size, const int* array);
 
 /**
 * @brief Функция заполняющая массив.
@@ -50,7 +50,7 @@ int get_value(const char* message);
 * @parm min_e первый минимальный элемент.
 * @return максимальный отрицательный элемент массива.
 */
-int get_max_element(const size_t size, int* array, int min_e);
+int get_max_negative_element(const size_t size, const int* array);
 
 /**
 * @brief Функция считающая количество положительных элементов больших по модулю числу A, которое мы задаем с клавиатуры.
@@ -59,7 +59,7 @@ int get_max_element(const size_t size, int* array, int min_e);
 * @param a - число A, которое мы задаем с клаиатуры.
 * @return количество элементов.
 */
-int second_point(const size_t size, int* array, int a);
+int second_point(const size_t size, const int* array, const int a);
 
 /**
 * @brief Функция находящая номер первой пары соседних элементов, сумма которых меньше заданного числа.
@@ -68,7 +68,7 @@ int second_point(const size_t size, int* array, int a);
 * @param a - число A, которое мы задаем с клаиатуры.
 * @return номер первой пары.
 */
-int third_point(const size_t size, int* array, int a);
+int third_point(const size_t size, const int* array, const int a);
 
 enum random_or_keybord
 {
@@ -92,7 +92,7 @@ int main()
     {
         errno = EIO;
         perror("Wrong value");
-        abort();
+        return 1;
     }
     size_t size = (size_t)(int_size);
 	int* array = (int*)malloc(size * sizeof(int));
@@ -110,39 +110,27 @@ int main()
     case Keyboard:
     {
         fill_array(size, array);
-        int min_e = first_negative(size, array);
-        array[1] = get_max_element(size, array, min_e);
-        print_array(size, array);
-        int a = get_value("Enter A: ");
-        puts("Answer for 2: ");
-        int counter = second_point(size, array, a);
-        printf("%d\n", counter);
-        puts("Answer for 3: ");
-        int pair_counter = third_point(size, array, a);
-        printf("%d", pair_counter);
         break;
     }
     case Random:
     {
         fill_random(size, array);
-        int min_e = first_negative(size, array);
-        array[1] = get_max_element(size, array, min_e);
-        print_array(size, array);
-        int a = get_value("Enter A: ");
-        puts("Answer for 2: ");
-        int counter = second_point(size, array, a);
-        printf("%d\n", counter);
-        puts("Answer for 3: ");
-        int pair_counter = third_point(size, array, a);
-        printf("%d", pair_counter);
         break;
     }
     default:
     {
         puts("Error");
-        abort();
+        return 1;
     }
     }
+    array[1] = get_max_negative_element(size, array);
+    print_array(size, array);
+    int a = get_value("Enter A: ");
+    puts("Answer for 2: ");
+    int counter = second_point(size, array, a);
+    printf("%d\n", counter);
+    puts("Answer for 3: ");
+    printf("%d", third_point(size, array, a));
     return 0;
 }
 
@@ -166,29 +154,18 @@ void names_of_random_and_keyboard()
 	printf("Random - %d\n", (int)Random);
 }
 
-int get_max_element(const size_t size, int* array, int min_e)
+int get_max_negative_element(const size_t size, int* array)
 {
-    int amount_max_elements = 0;
-    int max_element = min_e;
+    int max_negative_element = first_negative(size, array);;
     for (size_t i = 0; i < size; i++)
     {
         int c = array[i];
-        if ( c < 0)
+        if (c < 0)
         {
-            max_element = max(array[i], max_element);
-            amount_max_elements++;
+            max_negative_element = max(c, max_negative_element);
         }
     }
-    if (amount_max_elements == 0)
-    {
-            errno = EIO;
-            perror("Wrong array");
-            abort();
-    }
-    else
-    {
-        return max_element;
-    }
+    return max_negative_element;
 }
 
 int second_point(const size_t size, int* array, int a)
@@ -205,23 +182,25 @@ int second_point(const size_t size, int* array, int a)
     return counter;
 }
 
-int third_point(const size_t size, int* array, int a)
+int third_point(const size_t size, const int* array, const int a)
 {
-    int pair_counter = 0;
     for (size_t i = 0; i < size - 1; i++)
     {
-        pair_counter++;
-        if (array[i] + array[i + 1] < a) 
-        continue;
+        if (array[i] + array[i + 1] < a)
+        {
+            return i + 1;
+        }
     }
-    return pair_counter;
+    return 0;
 }
 int fill_array(const size_t size, int* array)
 {
     for (size_t i = 0; i < size; i++)
     {
         int c = get_value("Enter number from -10 to 10: ");
-        if (c < -10 || c > 10)
+        const int minimum_limit = -10;
+        const int maximum_limit = 10;
+        if (c < minimum_limit || c > maximum_limit)
         {
             errno = EIO;
             perror("Wrong array");
@@ -253,7 +232,7 @@ int fill_random(const size_t size, int* array)
     return 1;
 }
 
-int first_negative(const size_t size, int* array)
+int first_negative(const size_t size, const int* array)
 {
     for (size_t i = 0; i < size; i++)
     {
