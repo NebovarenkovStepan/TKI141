@@ -1,7 +1,9 @@
-﻿#include <stdio.h>
-#include<math.h>
+﻿#define _USE_MATH_DEFINES
+#include <stdio.h>
+#include <math.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <float.h>
 
 /**
  * @brief Формула для расчета факториала
@@ -23,14 +25,26 @@ double get_value(const char* message);
  */
 int main()
 {
-    double n, answ;
-    answ = 0;
-    n = get_value("Enter n: ");
+    double answer_a = 0;
+    double answer_b = 0;
+    double e = get_value("Enter e: ");
+    double n = get_value("Enter n: ");
     for (int i = 1; i <= n; i++)
     {
-        answ = answ +  factorial(i);
+        answer_a = answer_a +  factorial(i);
     }
-    printf("%lf\n", answ);
+    for (int i = 1; i <= n; i++)
+    {
+        double element = factorial(i);
+        if (element - e > DBL_MIN)
+        {
+            answer_b += element;
+        }
+    }
+    puts("Answer for a: ");
+    printf("%lf\n", answer_a);
+    puts("Answer for b: ");
+    printf("%lf\n", answer_b);
     return 0;
 }
 
