@@ -125,13 +125,13 @@ int main()
     }
     array[1] = get_max_negative_element(size, array);
     print_array(size, array);
-    free(array);
     int a = get_value("Enter A: ");
     puts("Answer for 2: ");
     int counter = second_point(size, array, a);
     printf("%d\n", counter);
     puts("Answer for 3: ");
     printf("%d", third_point(size, array, a));
+    free(array);
     return 0;
 }
 
