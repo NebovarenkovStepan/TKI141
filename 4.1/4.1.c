@@ -9,7 +9,7 @@
 * @brief Функция находящая первый отрицательный элемент массива.
 * @param size - размер массива.
 * @param array - массив.
-* @return Минимальный элемент.
+* @return Первый отрицательный элемент.
 */
 int first_negative(const size_t size, const int* array);
 
