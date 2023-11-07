@@ -115,7 +115,7 @@ int main()
 	{
 		errno = EIO;
 		perror("Wrong value");
-		abort();
+		return 1;
 	}
 	size_t size = (size_t)(int_size);
 	int* array = (int*)malloc(size * sizeof(int));
@@ -143,7 +143,7 @@ int main()
 	default:
 	{
 		puts("Error");
-		abort();
+		return 1;
 	}
 	}
 	print_array(size, array);
