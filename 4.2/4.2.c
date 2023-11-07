@@ -159,6 +159,7 @@ int main()
 	int* array_m = (int*)malloc(size * sizeof(int));
 	fill_array_m(size,array,array_m);
 	print_array(size, array_m);
+	free(array);
 	return 0;
 }
 
