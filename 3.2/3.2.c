@@ -35,7 +35,7 @@ int main()
     for (int i = 1; i <= n; i++)
     {
         double element = factorial(i);
-        if (element - e > DBL_MIN)
+        if (element - e >= DBL_MIN)
         {
             answer_b += element;
         }
