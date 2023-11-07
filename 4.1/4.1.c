@@ -125,6 +125,7 @@ int main()
     }
     array[1] = get_max_negative_element(size, array);
     print_array(size, array);
+    free(array);
     int a = get_value("Enter A: ");
     puts("Answer for 2: ");
     int counter = second_point(size, array, a);
@@ -217,7 +218,6 @@ int print_array(const size_t size, const int* array)
     {
         printf("%Iu\t%d\n", i, array[i]);
     }
-    free(array);
     return 1;
 }
 
