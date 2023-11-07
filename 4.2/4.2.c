@@ -96,7 +96,7 @@ void names_of_random_and_keyboard();
  * @param array - массив.
  * @return 1 если функция завершена без ошибок.
  */
-int incret_max_element(size_t size, int* array, int max_element);
+int incret_max_element(size_t size, int* array);
 
 enum random_or_keybord
 {
@@ -133,39 +133,11 @@ int main()
 	case Keyboard:
 	{
 		fill_array(size, array);
-		print_array(size, array);
-		printf("%s\n", "----");
-		change(size, array);
-		print_array(size, array);
-		printf("%s\n", "----");
-		int max_element = get_max_element(size, array);
-		size += counter_1(size, array);
-		get_wider_array(size, array, counter_1);
-		incret_max_element(size, array, max_element);
-		print_array(size, array);
-		printf("%s\n", "----");
-		int* array_m = (int*)malloc(size * sizeof(int));
-		fill_array_m(size,array,array_m);
-		print_array(size, array_m);
 		break;
 	}
 	case Random:
 	{
 		fill_random(size, array);
-		print_array(size, array);
-		printf("%s\n", "----");
-		change(size, array);
-		print_array(size, array);
-		printf("%s\n", "----");
-		int max_element = get_max_element(size, array);
-		size += counter_1(size, array);
-		get_wider_array(size, array, counter_1);
-		incret_max_element(size, array, max_element);
-		print_array(size, array);
-		printf("%s\n", "----");
-		int* array_m = (int*)malloc(size * sizeof(int));
-		fill_array_m(size, array, array_m);
-		print_array(size, array_m);
 		break;
 	}
 	default:
@@ -174,6 +146,19 @@ int main()
 		abort();
 	}
 	}
+	print_array(size, array);
+	printf("%s\n", "----");
+	change(size, array);
+	print_array(size, array);
+	printf("%s\n", "----");
+	size += counter_1(size, array);
+	get_wider_array(size, array, counter_1);
+	incret_max_element(size, array, max_element);
+	print_array(size, array);
+	printf("%s\n", "----");
+	int* array_m = (int*)malloc(size * sizeof(int));
+	fill_array_m(size,array,array_m);
+	print_array(size, array_m);
 	return 0;
 }
 
@@ -246,7 +231,7 @@ int change(size_t size, int* array)
 	return 1;
 }
 
-int get_max_element(size_t size, int* array)
+int incret_max_element(size_t size, int* array)
 {
 	const int lowest_element = -10;
 	int max_element = lowest_element;
@@ -255,11 +240,6 @@ int get_max_element(size_t size, int* array)
 		int c = array[i];
 		max_element = max(array[i], max_element);
 	}
-	return max_element;
-}
-
-int incret_max_element(size_t size, int* array, int max_element)
-{
 	size_t counter_1 = 0;
 	int i = 0;
 	while (i < size)
