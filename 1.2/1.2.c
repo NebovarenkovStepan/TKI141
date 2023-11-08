@@ -31,8 +31,6 @@ int main()
     return 0;
 }
 
-
-
 double get_area(double length)
 {
     double area = ((pow(length, 2) / (4 * M_PI)));
