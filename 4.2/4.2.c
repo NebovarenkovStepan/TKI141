@@ -160,6 +160,7 @@ int main()
 	fill_array_m(size,array,array_m);
 	print_array(size, array_m);
 	free(array);
+	free(array_m);
 	return 0;
 }
 
