@@ -22,7 +22,7 @@ void check(value);
 * @param array - массив.
 * @param lines - количество строк.
 * @param columns - количество столбцов.
-* @return максимальный элемент по модулю. 
+* @return максимальный элемент по модулю.
 */
 int find_max_element(int** array, size_t lines, size_t columns);
 
@@ -111,6 +111,7 @@ int main()
 		fill_random(array, wide, height);
 		break;
 	}
+	}
 	print_array(array, wide, height);
 	puts("------");
 	int max_element = find_max_element(array, wide, height);
@@ -120,7 +121,6 @@ int main()
 	print_array_third_point(array, wide, height);
 	free(array);
 	return 0;
-	}
 }
 int get_value(const char* message)
 {
