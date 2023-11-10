@@ -154,7 +154,7 @@ void print_array(int** array,  size_t lines, size_t columns)
 	{
 		for (size_t i = 0; i < columns; i++)
 		{
-			printf(" %d\t", array[i][c]);
+			printf("%d\t", array[i][c]);
 		}
 		printf("\n");
 	}
@@ -179,7 +179,7 @@ void fill_random(int** array, const size_t lines, const size_t columns)
 	{
 		for (size_t c = 0; c < columns; c++)
 		{
-			array[i][c] = rand() - 1000;
+			array[i][c] = rand() - 1000;//добавил тысячу чтобы хоть иногда отрицательные значения были.
 		}
 	}
 }
@@ -214,7 +214,7 @@ void print_array_third_point(int** array, size_t lines, size_t columns)
 		{
 			if (array[i][0] % 2 != 0)
 			{
-				printf(" %d\t", array[i][c]);
+				printf("%d\t", array[i][c]);
 			}
 		}
 		printf("\n");
