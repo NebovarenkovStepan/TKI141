@@ -111,6 +111,12 @@ int main()
 		fill_random(array, wide, height);
 		break;
 	}
+	default:
+	{
+		errno = EIO;
+		perror("Wrong value");
+		return 1;
+	}
 	}
 	print_array(array, wide, height);
 	puts("------");
