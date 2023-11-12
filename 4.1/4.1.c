@@ -157,7 +157,7 @@ void names_of_random_and_keyboard()
 
 int get_max_negative_element(const size_t size, int* array)
 {
-    int max_negative_element = first_negative(size, array);;
+    int max_negative_element = first_negative(size, array);
     for (size_t i = 0; i < size; i++)
     {
         int c = array[i];
