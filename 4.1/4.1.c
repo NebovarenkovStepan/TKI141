@@ -9,7 +9,7 @@
 * @brief Функция находящая первый отрицательный элемент массива.
 * @param size - размер массива.
 * @param array - массив.
-* @return Минимальный элемент.
+* @return Первый отрицательный элемент.
 */
 int first_negative(const size_t size, const int* array);
 
@@ -131,6 +131,7 @@ int main()
     printf("%d\n", counter);
     puts("Answer for 3: ");
     printf("%d", third_point(size, array, a));
+    free(array);
     return 0;
 }
 
@@ -156,7 +157,7 @@ void names_of_random_and_keyboard()
 
 int get_max_negative_element(const size_t size, int* array)
 {
-    int max_negative_element = first_negative(size, array);;
+    int max_negative_element = first_negative(size, array);
     for (size_t i = 0; i < size; i++)
     {
         int c = array[i];
@@ -217,7 +218,6 @@ int print_array(const size_t size, const int* array)
     {
         printf("%Iu\t%d\n", i, array[i]);
     }
-    free(array);
     return 1;
 }
 
