@@ -24,7 +24,13 @@ int main()
     double x = x_start;
     const double x_finish = get_value("Finish for x: ");
     const double dx = get_value("Step for x: ");
-    while ((x - x_finish) <= DBL_MIN)
+    if (dx < 0)
+    {
+        errno = EIO;
+        perror("Wrong value");
+        abort();
+    }
+    while ((x - x_finish) < DBL_EPSILON)
     {
         double y = result(x);
         printf("%lf\t%0.2lf\t\n", x, y);
