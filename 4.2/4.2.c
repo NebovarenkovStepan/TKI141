@@ -19,9 +19,8 @@ int counter_1(size_t size, int* array);
 * @brief Функция заполняющая массив m.
 * @param size - размер массива.
 * @param array - массив.
-* @return 1 если все хорошо.
 */
-int fill_array_m(size_t size, int* array, int* array_m);
+void fill_array_m(size_t size, int* array, int* array_m);
 
 /**
 * @brief Функция, проверяющая содержит ли число единицу.
@@ -288,7 +287,7 @@ int counter_1(size_t size, int* array)
 	return counter_1;
 }
 
-int fill_array_m(size_t size, int* array, int* array_m)
+void fill_array_m(size_t size, int* array, int* array_m)
 {
 	int counter = 0;
 	for (size_t i = 0; i < size; i++)
@@ -303,7 +302,5 @@ int fill_array_m(size_t size, int* array, int* array_m)
 		{
 			array_m[i] = -1 * array[i] * (i + 1);
 		}
-
 	}
-	return 1;
 }
