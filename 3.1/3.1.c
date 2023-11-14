@@ -27,7 +27,7 @@ int main()
     {
         errno = EIO;
         perror("Wrong value");
-        abort();
+        return 1;
     }
     const double x_finish = dx + get_value("Finish for x: ");
     while ((x - x_finish) < DBL_EPSILON)
