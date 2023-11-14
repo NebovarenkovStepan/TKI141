@@ -46,9 +46,8 @@ void print_array_third_point(int** array, size_t lines, size_t columns);
 * @param array - массив.
 * @param lines - количество строк.
 * @param columns - количество столбцов.
-* @param max_element - максимальный элемент массива.
 */
-void change(int** array, size_t lines, size_t columns, int max_element);
+void change(int** array, size_t lines, size_t columns);
 
 /**
 * @brief Функция, заполняющая массив.
@@ -120,8 +119,7 @@ int main()
 	}
 	print_array(array, wide, height);
 	puts("------");
-	int max_element = find_max_element(array, wide, height);
-	change(array, wide, height, max_element);
+	change(array, wide, height);
 	print_array(array, wide, height);
 	puts("------");
 	print_array_third_point(array, wide, height);
@@ -190,8 +188,9 @@ void fill_random(int** array, const size_t lines, const size_t columns)
 	}
 }
 
-void change(int** array, size_t lines, size_t columns, int max_element)
+void change(int** array, size_t lines, size_t columns)
 {
+	int max_element = find_max_element(array, lines, columns);
 	for (size_t i = 0; i < lines; i++)
 	{
 		int counter = -1;
