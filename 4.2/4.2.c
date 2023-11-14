@@ -189,7 +189,7 @@ int fill_array(size_t size, int* array)
 		if (c < -10 || c > 10)
 		{
 			errno = EIO;
-			perror("Wrong array");
+			perror("Wrong  array");
 			abort();
 		}
 		array[i] = c;
