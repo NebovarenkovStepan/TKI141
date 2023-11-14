@@ -22,7 +22,6 @@ int main()
 {
     const double x_start = get_value("Start for x: ");
     double x = x_start;
-    const double x_finish = get_value("Finish for x: ");
     const double dx = get_value("Step for x: ");
     if (dx < 0)
     {
@@ -30,6 +29,7 @@ int main()
         perror("Wrong value");
         abort();
     }
+    const double x_finish = dx + get_value("Finish for x: ");
     while ((x - x_finish) < DBL_EPSILON)
     {
         double y = result(x);
