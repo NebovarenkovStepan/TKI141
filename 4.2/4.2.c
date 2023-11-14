@@ -7,13 +7,19 @@
 #include <string.h>
 #include <stdbool.h>
 
+int get_max(const size_t size, const int* array);
+
+int* get_array(const size_t size);
+
+size_t get_size(const char* message);
+
 /**
 * @brief Функция, считающая количество единиц в массиве для его расширения массив.
 * @param size - размер массива.
 * @param array - массив.
 * @return 1 если все хорошо.
 */
-int counter_1(size_t size, int* array);
+int counter_1(size_t size, const int* array);
 
 /**
 * @brief Функция заполняющая массив m.
@@ -59,7 +65,7 @@ int fill_random(size_t size, int* array);
 * @param array - массив.
 * @return 1 если функци¤ завершена без ошибок.
 */
-int print_array(size_t size, int* array);
+int print_array(size_t size, const int* array);
 
 /**
 * @brief Функция принимающая и проверяющая значение на ввод.
@@ -87,7 +93,10 @@ void names_of_random_and_keyboard();
 * @param array - массив.
 * @return 1 если функция завершена без ошибок.
 */
-int incret_max_element(size_t size, int* array);
+void fill_array_second_task(size_t size, int* array, int* new_array);
+
+void free_array(int* array);
+
 enum random_or_keybord
 {
 	Keyboard = 1,
@@ -100,21 +109,9 @@ enum random_or_keybord
  */
 int main()
 {
-	int int_size = get_value("Enter array size: ");
-	if (int_size <= 0)
-	{
-		errno = EIO;
-		perror("Wrong value");
-		return 1;
-	}
-	size_t size = (size_t)(int_size);
-	int* array = (int*)malloc(size * sizeof(int));
-	if (array == NULL)
-	{
-		errno = ENOMEM;
-		perror("Error!");
-		exit(0);
-	}
+	size_t size  = get_size("Enter array size: ");
+	int* array = get_array(size);
+
 	names_of_random_and_keyboard();
 	int number = get_value("");
 	enum random_or_keybord walue = (enum random_or_keybord)(number);
@@ -136,21 +133,31 @@ int main()
 		return 1;
 	}
 	}
+
 	print_array(size, array);
 	printf("%s\n", "----");
+
 	change(size, array);
 	print_array(size, array);
 	printf("%s\n", "----");
-	size += counter_1(size, array);
-	get_wider_array(size, array);
-	incret_max_element(size, array);
-	print_array(size, array);
+
+	size_t new_size = size + counter_1(size, array);
+	int* new_array = get_array(new_size);
+	//get_wider_array(size, array);
+	fill_array_second_task(size, array, new_array);
+	print_array(new_size, new_array);
 	printf("%s\n", "----");
-	int* array_m = (int*)malloc(size * sizeof(int));
-	fill_array_m(size, array, array_m);
-	print_array(size, array_m);
-	free(array);
-	free(array_m);
+
+	int* array_m = get_array(new_size);
+
+	fill_array_m(new_size, new_array, array_m);
+	print_array(new_size, array_m);
+
+
+	free_array(array);
+	free_array(new_array);
+	free_array(array_m);
+
 	return 0;
 }
 
@@ -190,7 +197,7 @@ int fill_array(size_t size, int* array)
 	return 1;
 }
 
-int print_array(size_t size, int* array)
+int print_array(size_t size,const int* array)
 {
 	for (size_t i = 0; i < size; i++)
 	{
@@ -223,34 +230,26 @@ int change(size_t size, int* array)
 	return 1;
 }
 
-int incret_max_element(size_t size, int* array)
+void fill_array_second_task(size_t size, int* array, int* new_array)
 {
-	const int lowest_element = -10;
-	int max_element = lowest_element;
+	int max_element = get_max(size, array);
+	size_t j = 0;
 	for (size_t i = 0; i < size; i++)
 	{
-		int c = array[i];
-		max_element = max(array[i], max_element);
-	}
-	size_t counter_1 = 0;
-	int i = 0;
-	while (i < size)
-	{
-		size_t position = i;
-		int number = array[i];
 		if (is_one(array[i]))
 		{
-			for (size_t i = size - 1; i > position; i--)
-			{
-				array[i + 1] = array[i];
-			}
-			array[position + 1] = number;
-			i++;
-			array[position] = max_element;
+			new_array[j++] = max_element;
 		}
-		i++;
+		new_array[j++] = array[i];
 	}
-	return 1;
+}
+
+void free_array(int* array)
+{
+	if (array)
+	{
+		free(array);
+	}
 }
 
 bool is_one(int number)
@@ -270,10 +269,52 @@ bool is_one(int number)
 int get_wider_array(size_t size, int* array)
 {
 	array = realloc(array, size * sizeof(int));
-	return 1;
+	if (array == NULL)
+	{
+		errno = ENOMEM;
+		perror("Error!");
+	    abort();
+	}
 }
 
-int counter_1(size_t size, int* array)
+int get_max(const size_t size, const int* array)
+{
+	int max_element = array[0];
+	for (size_t i = 0; i < size; i++)
+	{
+		max_element = max(array[i], max_element);
+	}
+
+	return max_element;
+}
+
+int* get_array(const size_t size)
+{
+	int* array = (int*)malloc(size * sizeof(int));
+	if (array == NULL)
+	{
+		errno = ENOMEM;
+		perror("Error!");
+		abort();
+	}
+
+	return array;
+}
+
+size_t get_size(const char* message)
+{
+	int int_size = get_value(message);
+	if (int_size <= 0)
+	{
+		errno = EIO;
+		perror("Wrong value");
+		return 1;
+	}
+
+	return (size_t)int_size;
+}
+
+int counter_1(size_t size, const int* array)
 {
 	int counter_1 = 0;
 	for (size_t i = 0; i < size; i++)
@@ -300,7 +341,7 @@ void fill_array_m(size_t size, int* array, int* array_m)
 		}
 		else
 		{
-			array_m[i] = -1 * array[i] * (i + 1);
+			array_m[i] = ( -array[i] ) * (i + 1);
 		}
 	}
 }
