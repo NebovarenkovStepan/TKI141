@@ -7,10 +7,27 @@
 #include <string.h>
 #include <stdbool.h>
 
+
+/**
+* @brief Функция, находящая максимальный эллемент масива.
+* @param size - размер массива.
+* @param array - массив.
+* @return max_elemnt = максимальный элемент.
+*/
 int get_max(const size_t size, const int* array);
 
+/**
+* @brief Функция, создающая масив.
+* @param size - размер массива.
+* @return array - массив.
+*/
 int* get_array(const size_t size);
 
+/**
+* @brief Функция принимающая и проверяющая значение на ввод.
+* @param message - текст сообщение для пользователя.
+* @return Значение типа size_t.
+*/
 size_t get_size(const char* message);
 
 /**
