@@ -131,7 +131,10 @@ int main()
     printf("%d\n", counter);
     puts("Answer for 3: ");
     printf("%d", third_point(size, array, a));
-    free(array);
+    if (NULL != array)
+    {
+        free(array);
+    }
     return 0;
 }
 
@@ -196,11 +199,17 @@ int third_point(const size_t size, const int* array, const int a)
 }
 int fill_array(const size_t size, int* array)
 {
+    const int minimum_limit = get_value("Enter the lower bound of the array: ");
+    const int maximum_limit = get_value("Enter the upper bound of the array: ");
+    if (minimum_limit >= maximum_limit)
+    {
+        errno = EIO;
+        perror("Wrong array");
+        abort();
+    }
     for (size_t i = 0; i < size; i++)
     {
-        int c = get_value("Enter number from -10 to 10: ");
-        const int minimum_limit = -10;
-        const int maximum_limit = 10;
+        int c = get_value("Enter number from the lower bound to the upper bound: ");
         if (c < minimum_limit || c > maximum_limit)
         {
             errno = EIO;
@@ -223,11 +232,13 @@ int print_array(const size_t size, const int* array)
 
 int fill_random(const size_t size, int* array)
 {
+    const int minimum_limit = get_value("Enter the lower bound of the array: ");
+    const int maximum_limit = get_value("Enter the upper bound of the array: ");
     unsigned int ttime = time(NULL);
     srand(ttime);
     for (size_t i = 0; i < size; i++)
     {
-        array[i] = -10 + rand() % 21;
+        array[i] = minimum_limit + rand() % (maximum_limit - minimum_limit + 1);
     }
     return 1;
 }
