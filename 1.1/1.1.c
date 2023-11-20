@@ -22,9 +22,9 @@ double get_b(float x, float y, float z);
 
 int main()
 {
-    const double x = 1.4;
-    const double y = 3.1;
-    const double z = 0.5;
+    const float x = 1.4;
+    const float y = 3.1;
+    const float z = 0.5;
     double a = get_a(x, y, z); // a=0.870404
     double b = get_b(x, y, z); // b=-50.893158
     printf("a= %f\n", a);
