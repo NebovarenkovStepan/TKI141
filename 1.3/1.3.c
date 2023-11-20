@@ -1,6 +1,9 @@
 ﻿#include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <float.h>
+
 /**
  * @brief Функция расчитывающая возможность ввода.
  * \param res количество аргументов.
@@ -24,6 +27,12 @@ int main()
 	const double q = 1000;
 	printf("%s", "Enter h: ");
 	res = scanf_s("%lf", &h);
+	if (h <= DBL_EPSILON)
+	{
+		errno = EIO;
+		perror("Wrong value");
+		return 1;
+	}
 	number_of_arguments(res);
 	puts("Bottom pressure: ");
 	printf("P=%lf\n", get_pressure(q, g, h));
