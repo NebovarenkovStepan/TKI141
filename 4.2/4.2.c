@@ -112,6 +112,10 @@ void names_of_random_and_keyboard();
 */
 void fill_array_second_task(size_t size, int* array, int* new_array);
 
+/**
+* @brief Функция, очищающая массив.
+* @param array - массив
+*/
 void free_array(int* array);
 
 enum random_or_keybord
@@ -160,7 +164,6 @@ int main()
 
 	size_t new_size = size + counter_1(size, array);
 	int* new_array = get_array(new_size);
-	//get_wider_array(size, array);
 	fill_array_second_task(size, array, new_array);
 	print_array(new_size, new_array);
 	printf("%s\n", "----");
@@ -225,6 +228,14 @@ int print_array(size_t size,const int* array)
 
 int fill_random(size_t size, int* array)
 {
+	const int minimum_limit = get_value("Enter the lower bound of the array: ");
+	const int maximum_limit = get_value("Enter the upper bound of the array: ");
+	if (maximum_limit < minimum_limit)
+	{
+		errno = EIO;
+		perror("Wrong limits");
+		abort();
+	}
 	unsigned int ttime = (unsigned int)(time(NULL));
 	srand(ttime);
 	for (size_t i = 0; i < size; i++)
@@ -236,7 +247,7 @@ int fill_random(size_t size, int* array)
 
 int change(size_t size, int* array)
 {
-	for (size_t i = size - 1; i > 0; i--)
+	for (size_t i = size - 1; i >= 0; i--)
 	{
 		if (array[i] > 0)
 		{
@@ -244,7 +255,8 @@ int change(size_t size, int* array)
 			return 1;
 		}
 	}
-	return 1;
+	puts("There are no positive numbers in the array.");
+	return 0;
 }
 
 void fill_array_second_task(size_t size, int* array, int* new_array)
@@ -283,17 +295,6 @@ bool is_one(int number)
 	return false;
 }
 
-int get_wider_array(size_t size, int* array)
-{
-	array = realloc(array, size * sizeof(int));
-	if (array == NULL)
-	{
-		errno = ENOMEM;
-		perror("Error!");
-	    abort();
-	}
-}
-
 int get_max(const size_t size, const int* array)
 {
 	int max_element = array[0];
@@ -325,7 +326,7 @@ size_t get_size(const char* message)
 	{
 		errno = EIO;
 		perror("Wrong value");
-		return 1;
+		abort();
 	}
 
 	return (size_t)int_size;
