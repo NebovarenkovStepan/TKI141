@@ -53,20 +53,12 @@ void fill_array_m(size_t size, int* array, int* array_m);
 bool is_one(int number);
 
 /**
-* @brief Функция, расширяющая массив.
-* @param size - размер массива.
-* @param array - массив.
-* @return 1 если все хорошо.
-*/
-int get_wider_array(size_t size, int* array);
-
-/**
 * @brief Функция заполняющая массив.
 * @param size - размер массива.
 * @param array - массив.
 * @return 1 если все хорошо.
 */
-int fill_array(size_t size, int* array);
+int fill_array(size_t size, int* array, const int minimum_limit, const int maximum_limit);
 
 /**
 * @brief Функция заполняющая массив рандомными числами.
@@ -74,7 +66,7 @@ int fill_array(size_t size, int* array);
 * @param array - массив.
 * @return 1 если все хорошо.
 */
-int fill_random(size_t size, int* array);
+int fill_random(size_t size, int* array, const int minimum_limit, const int maximum_limit);
 
 /**
 * @brief Функция выводящая заполненный массив.
@@ -135,17 +127,25 @@ int main()
 
 	names_of_random_and_keyboard();
 	int number = get_value("");
+	const int minimum_limit = get_value("Enter the lower bound of the array: ");
+	const int maximum_limit = get_value("Enter the upper bound of the array: ");
 	enum random_or_keybord walue = (enum random_or_keybord)(number);
 	switch (walue)
 	{
 	case Keyboard:
 	{
-		fill_array(size, array);
+		fill_array(size, array, minimum_limit, maximum_limit);
 		break;
 	}
 	case Random:
 	{
-		fill_random(size, array);
+		if (maximum_limit < minimum_limit)
+		{
+			errno = EIO;
+			perror("Wrong limits");
+			return 1;
+		}
+		fill_random(size, array, minimum_limit, maximum_limit);
 		break;
 	}
 	default:
@@ -201,7 +201,7 @@ void names_of_random_and_keyboard()
 	printf("Random - %d\n", (int)Random);
 }
 
-int fill_array(size_t size, int* array)
+int fill_array(size_t size, int* array, const int minimum_limit, const int maximum_limit)
 {
 	for (size_t i = 0; i < size; i++)
 	{
@@ -222,25 +222,6 @@ int print_array(size_t size,const int* array)
 	for (size_t i = 0; i < size; i++)
 	{
 		printf("%Iu\t%d\n", i, array[i]);
-	}
-	return 1;
-}
-
-int fill_random(size_t size, int* array)
-{
-	const int minimum_limit = get_value("Enter the lower bound of the array: ");
-	const int maximum_limit = get_value("Enter the upper bound of the array: ");
-	if (maximum_limit < minimum_limit)
-	{
-		errno = EIO;
-		perror("Wrong limits");
-		abort();
-	}
-	unsigned int ttime = (unsigned int)(time(NULL));
-	srand(ttime);
-	for (size_t i = 0; i < size; i++)
-	{
-		array[i] = minimum_limit + rand() % (maximum_limit - minimum_limit + 1);
 	}
 	return 1;
 }
@@ -362,4 +343,21 @@ void fill_array_m(size_t size, int* array, int* array_m)
 			array_m[i] = ( -array[i] ) * (i + 1);
 		}
 	}
+}
+
+int fill_random(size_t size, int* array, const int minimum_limit, const int maximum_limit)
+{
+	if (maximum_limit < minimum_limit)
+	{
+		errno = EIO;
+		perror("Wrong limits");
+		abort();
+	}
+	unsigned int ttime = (unsigned int)(time(NULL));
+	srand(ttime);
+	for (size_t i = 0; i < size; i++)
+	{
+		array[i] = minimum_limit + rand() % (maximum_limit - minimum_limit + 1);
+	}
+	return 1;
 }
