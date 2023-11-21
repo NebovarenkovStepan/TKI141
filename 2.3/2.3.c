@@ -3,6 +3,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include <errno.h>
+#include <float.h>
 
 /**
 * @brief Функция показывает возможность вписания двух прямоугольников в круг.
@@ -71,7 +72,7 @@ double get_value(const char* message)
 	double a;
 	printf("%s", message);
 	int res = scanf_s("%lf", &a);
-	if (res != 1)
+	if (res != 1 || a <= DBL_EPSILON)
 	{
 		errno = EIO;
 		perror("Wrong value");
