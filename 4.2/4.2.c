@@ -240,7 +240,7 @@ int fill_random(size_t size, int* array)
 	srand(ttime);
 	for (size_t i = 0; i < size; i++)
 	{
-		array[i] = -10 + rand() % 21;
+		array[i] = minimum_limit + rand() % (maximum_limit - minimum_limit + 1);
 	}
 	return 1;
 }
