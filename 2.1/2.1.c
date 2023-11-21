@@ -131,7 +131,7 @@ double get_distance(double x1, double y1, double x2, double y2)
 
 void coordinates(double x1, double y1, double x2, double y2)
 {
-    if (equal(x1, x2) && (equal(y1, y2)));
+    if ((equal(x1, x2)) && (equal(y1, y2)))
     {
         puts("Error!");
         abort();
@@ -182,5 +182,5 @@ int get_value()
 
 bool equal(double cord1, double cord2)
 {
-    return fabs(cord1 - cord2) <= DBL_MIN;
+    return (fabs(cord1 - cord2)) <= DBL_EPSILON;
 }
