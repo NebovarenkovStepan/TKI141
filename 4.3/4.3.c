@@ -123,7 +123,10 @@ int main()
 	print_array(array, wide, height);
 	puts("------");
 	print_array_third_point(array, wide, height);
-	free(array);
+	if (array != NULL)
+	{
+		free(array);
+	}
 	return 0;
 }
 int get_value(const char* message)
