@@ -129,6 +129,12 @@ int main()
 	int number = get_value("");
 	const int minimum_limit = get_value("Enter the lower bound of the array: ");
 	const int maximum_limit = get_value("Enter the upper bound of the array: ");
+	if (maximum_limit < minimum_limit)
+	{
+		errno = EIO;
+		perror("Wrong limits");
+		return 1;
+	}
 	enum random_or_keybord walue = (enum random_or_keybord)(number);
 	switch (walue)
 	{
@@ -139,12 +145,7 @@ int main()
 	}
 	case Random:
 	{
-		if (maximum_limit < minimum_limit)
-		{
-			errno = EIO;
-			perror("Wrong limits");
-			return 1;
-		}
+		
 		fill_random(size, array, minimum_limit, maximum_limit);
 		break;
 	}
@@ -205,8 +206,8 @@ int fill_array(size_t size, int* array, const int minimum_limit, const int maxim
 {
 	for (size_t i = 0; i < size; i++)
 	{
-		int c = get_value("Enter number from -10 to 10: ");
-		if (c < -10 || c > 10)
+		int c = get_value("Enter number from minimum_limit to maximum_limit: ");
+		if (c < minimum_limit || c > maximum_limit)
 		{
 			errno = EIO;
 			perror("Wrong array");
