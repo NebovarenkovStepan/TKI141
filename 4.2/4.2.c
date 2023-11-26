@@ -124,9 +124,6 @@ int main()
 {
 	size_t size  = get_size("Enter array size: ");
 	int* array = get_array(size);
-
-	names_of_random_and_keyboard();
-	int number = get_value("");
 	const int minimum_limit = get_value("Enter the lower bound of the array: ");
 	const int maximum_limit = get_value("Enter the upper bound of the array: ");
 	if (maximum_limit < minimum_limit)
@@ -135,6 +132,8 @@ int main()
 		perror("Wrong limits");
 		return 1;
 	}
+	names_of_random_and_keyboard();
+	int number = get_value("");
 	enum random_or_keybord walue = (enum random_or_keybord)(number);
 	switch (walue)
 	{
