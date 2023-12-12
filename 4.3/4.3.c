@@ -212,7 +212,18 @@ void fill_random(int** array, const size_t lines, const size_t columns)
 
 void change(const int** array, size_t lines, size_t columns)
 {
-	int** new_array = array;
+	int** new_array = (int**)malloc(sizeof(int*) * lines);
+	for (int i = 0; i < lines; i++)
+	{
+		array[i] = (int*)malloc(sizeof(int) * columns);
+	}
+	for (size_t i = 0; i < lines; i++)
+	{
+		for (size_t j = 0; j < columns; j++)
+		{
+			new_array[i][j] = array[i][j];
+		}
+	}
 	int max_element = find_max_element(array, lines, columns);
 	for (size_t i = 0; i < lines; i++)
 	{
