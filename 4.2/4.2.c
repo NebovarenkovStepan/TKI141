@@ -7,6 +7,12 @@
 #include <string.h>
 #include <stdbool.h>
 
+/**
+* @brief Функция, проверяющая границы массива.
+* @param minimum_limit - нижняя граница массива.
+* @param maximum_limit - верхняя граница массива.
+*/
+void limits_check(const int minimum_limit, const int maximum_limit);
 
 /**
 * @brief Функция, находящая максимальный эллемент масива.
@@ -43,7 +49,7 @@ int counter_1(size_t size, const int* array);
 * @param size - размер массива.
 * @param array - массив.
 */
-void fill_array_m(size_t size, int* array, int* array_m);
+void fill_array_m(size_t size, int* array);
 
 /**
 * @brief Функция, проверяющая содержит ли число единицу.
@@ -102,7 +108,7 @@ void names_of_random_and_keyboard();
 * @param array - массив.
 * @return 1 если функция завершена без ошибок.
 */
-void fill_array_second_task(size_t size, int* array, int* new_array);
+void fill_array_second_task(size_t size, int* array);
 
 /**
 * @brief Функция, очищающая массив.
@@ -110,9 +116,20 @@ void fill_array_second_task(size_t size, int* array, int* new_array);
 */
 void free_array(int* array);
 
+
+/**
+* @brief Выбор заполнения массива.
+*/
 enum random_or_keybord
 {
+	/**
+	* @brief Ручной способ.
+	*/
 	Keyboard = 1,
+
+	/**
+	* @brief Заполнение массива случайными числами.
+	*/
 	Random = 2
 };
 
@@ -126,12 +143,7 @@ int main()
 	int* array = get_array(size);
 	const int minimum_limit = get_value("Enter the lower bound of the array: ");
 	const int maximum_limit = get_value("Enter the upper bound of the array: ");
-	if (maximum_limit < minimum_limit)
-	{
-		errno = EIO;
-		perror("Wrong limits");
-		return 1;
-	}
+	limits_check(minimum_limit, maximum_limit);
 	names_of_random_and_keyboard();
 	int number = get_value("");
 	enum random_or_keybord walue = (enum random_or_keybord)(number);
@@ -159,25 +171,15 @@ int main()
 	printf("%s\n", "----");
 
 	change(size, array);
-	print_array(size, array);
 	printf("%s\n", "----");
 
-	size_t new_size = size + counter_1(size, array);
-	int* new_array = get_array(new_size);
-	fill_array_second_task(size, array, new_array);
-	print_array(new_size, new_array);
+	fill_array_second_task(size, array);
 	printf("%s\n", "----");
 
-	int* array_m = get_array(new_size);
-
-	fill_array_m(new_size, new_array, array_m);
-	print_array(new_size, array_m);
+	fill_array_m(size, array);
 
 
 	free_array(array);
-	free_array(new_array);
-	free_array(array_m);
-
 	return 0;
 }
 
@@ -228,20 +230,26 @@ int print_array(size_t size,const int* array)
 
 int change(size_t size, int* array)
 {
+	int* copy = get_array(size);
+	copy = array;
 	for (size_t i = size - 1; i >= 0; i--)
 	{
-		if (array[i] > 0)
+		if (copy[i] > 0)
 		{
-			array[i] = array[1];
+			copy[i] = array[1];
+			print_array(size, copy);
 			return 1;
 		}
 	}
 	puts("There are no positive numbers in the array.");
+	print_array(array, size);
 	return 0;
 }
 
-void fill_array_second_task(size_t size, int* array, int* new_array)
+void fill_array_second_task(size_t size, int* array)
 {
+	size_t new_size = size + counter_1(size, array);
+	int* new_array = get_array(new_size);
 	int max_element = get_max(size, array);
 	size_t j = 0;
 	for (size_t i = 0; i < size; i++)
@@ -252,6 +260,7 @@ void fill_array_second_task(size_t size, int* array, int* new_array)
 		}
 		new_array[j++] = array[i];
 	}
+	print_array(new_size, new_array);
 }
 
 void free_array(int* array)
@@ -327,8 +336,9 @@ int counter_1(size_t size, const int* array)
 	return counter_1;
 }
 
-void fill_array_m(size_t size, int* array, int* array_m)
+void fill_array_m(size_t size, int* array)
 {
+	int* array_m = get_array(size);
 	int counter = 0;
 	for (size_t i = 0; i < size; i++)
 	{
@@ -343,6 +353,7 @@ void fill_array_m(size_t size, int* array, int* array_m)
 			array_m[i] = ( -array[i] ) * (i + 1);
 		}
 	}
+	print_array(size, array_m);
 }
 
 int fill_random(size_t size, int* array, const int minimum_limit, const int maximum_limit)
@@ -360,4 +371,14 @@ int fill_random(size_t size, int* array, const int minimum_limit, const int maxi
 		array[i] = minimum_limit + rand() % (maximum_limit - minimum_limit + 1);
 	}
 	return 1;
+}
+
+void limits_check(const int minimum_limit, const int maximum_limit)
+{
+	if (maximum_limit < minimum_limit)
+	{
+		errno = EIO;
+		perror("Wrong limits");
+		abort();
+	}
 }
