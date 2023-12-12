@@ -231,7 +231,11 @@ int print_array(size_t size,const int* array)
 int change(size_t size, int* array)
 {
 	int* copy = get_array(size);
-	copy = array;
+	for (size_t i = i; i < size; i++)
+	{
+		copy[i] = array[i];
+	}
+
 	for (size_t i = size - 1; i >= 0; i--)
 	{
 		if (copy[i] > 0)
