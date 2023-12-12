@@ -5,9 +5,26 @@
 #include <errno.h>
 #include <time.h>
 
+/**
+* @brief Функция, проверяющая границы массива.
+* @param minimum_limit - нижняя граница массива.
+* @param maximum_limit - верхняя граница массива.
+*/
+void limits_check(const int minimum_limit, const int maximum_limit);
+
+/**
+* @brief Выбор заполнения массива.
+*/
 enum random_or_keybord
 {
+	/**
+	* @brief Ручной способ.
+	*/
 	Keyboard = 1,
+
+	/**
+	* @brief Заполнение массива случайными числами.
+	*/
 	Random = 2
 };
 
@@ -120,7 +137,6 @@ int main()
 	print_array(array, wide, height);
 	puts("------");
 	change(array, wide, height);
-	print_array(array, wide, height);
 	puts("------");
 	print_array_third_point(array, wide, height);
 	if (array != NULL)
@@ -180,19 +196,23 @@ void fill_array(int** array, const size_t lines, const size_t columns)
 
 void fill_random(int** array, const size_t lines, const size_t columns)
 {
+	const int minimum_limit = get_value("Enter the lower bound of the array: ");
+	const int maximum_limit = get_value("Enter the upper bound of the array: ");
+	limits_check(minimum_limit, maximum_limit);
 	unsigned int ttime = (unsigned int)(time(NULL));
 	srand(ttime);
 	for (size_t i = 0; i < lines; i++)
 	{
 		for (size_t c = 0; c < columns; c++)
 		{
-			array[i][c] = rand() - 1000;//добавил тысячу чтобы хоть иногда отрицательные значения были.
+			array[i][c] = minimum_limit + rand() % (maximum_limit - minimum_limit + 1);
 		}
 	}
 }
 
-void change(int** array, size_t lines, size_t columns)
+void change(const int** array, size_t lines, size_t columns)
 {
+	int** new_array = array;
 	int max_element = find_max_element(array, lines, columns);
 	for (size_t i = 0; i < lines; i++)
 	{
@@ -201,11 +221,12 @@ void change(int** array, size_t lines, size_t columns)
 		{
 			if (array[i][c] % 2 == 0 && counter != i)
 			{
-				array[i][c] = max_element;
+				new_array[i][c] = max_element;
 				counter = i;
 			}
 		}
 	}
+	print_array(new_array, lines, columns);
 }
 
 void print_array_third_point(int** array, size_t lines, size_t columns)
@@ -253,4 +274,14 @@ int find_max_element(int** array, size_t lines, size_t columns)
 		}
 	}
 	return max_element;
+}
+
+void limits_check(const int minimum_limit, const int maximum_limit)
+{
+	if (maximum_limit < minimum_limit)
+	{
+		errno = EIO;
+		perror("Wrong limits");
+		abort();
+	}
 }
