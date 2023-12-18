@@ -46,12 +46,6 @@ enum random_or_keybord
 };
 
 /**
-* @brief Функция проверяющая ввденное значение.
-* @param value - значение которое проверяем.
-*/
-void check(value);
-
-/**
 * @brief Функция, находящая максимальный элемент массива по модулю .
 * @param array - массив.
 * @param lines - количество строк.
@@ -264,16 +258,6 @@ void print_array_third_point(int** array, size_t lines, size_t columns)
 			}
 		}
 		printf("\n");
-	}
-}
-
-void check(value)
-{
-	if (value <= 0)
-	{
-		errno = EIO;
-		perror("Wrong value");
-		abort();
 	}
 }
 
