@@ -4,7 +4,16 @@
 #include <float.h>
 #include <errno.h>
 #include <time.h>
- 
+
+/**
+* @brief Функция, создающая двумерный массив.
+* @param array - массив.
+* @param lines - количество строк.
+* @param columns - количество столбцов.
+* @return массив.
+*/
+int** create_arry(lines, columns);
+
 /**
 * @brief Функция, проверяющая границы массива.
 * @param minimum_limit - нижняя граница массива.
@@ -107,11 +116,7 @@ int main()
 	int int_height = get_value("Enter array height: ");
 	check(int_height);
 	size_t height = (size_t)(int_height);
-	int** array = (int**)malloc(sizeof(int*) * wide);
-	for (int i = 0; i < wide; i++)
-	{
-		array[i] = (int*)malloc(sizeof(int) * height);
-	}
+	int** array = create_arry(wide, height);
 	names_of_random_and_keyboard();
 	int number = get_value("");
 	enum random_or_keybord walue = (enum random_or_keybord)(number);
@@ -212,11 +217,7 @@ void fill_random(int** array, const size_t lines, const size_t columns)
 
 void change(const int** array, size_t lines, size_t columns)
 {
-	int** new_array = (int**)malloc(sizeof(int*) * lines);
-	for (int i = 0; i < lines; i++)
-	{
-		array[i] = (int*)malloc(sizeof(int) * columns);
-	}
+	int** new_array = create_arry(lines, columns);
 	for (size_t i = 0; i < lines; i++)
 	{
 		for (size_t j = 0; j < columns; j++)
@@ -295,4 +296,14 @@ void limits_check(const int minimum_limit, const int maximum_limit)
 		perror("Wrong limits");
 		abort();
 	}
+}
+
+int** create_arry(wide, height)
+{
+	int** array = (int**)malloc(sizeof(int*) * wide);
+	for (int i = 0; i < wide; i++)
+	{
+		array[i] = (int*)malloc(sizeof(int) * height);
+	}
+	return array;
 }
