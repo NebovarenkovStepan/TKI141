@@ -6,6 +6,14 @@
 #include <time.h>
 
 /**
+* @brief Функция принимающая и проверяющая значение на ввод.
+* @param message - текст сообщение для пользователя.
+* @return Значение типа size_t.
+*/
+int get_parametrs(const char* message);
+
+
+/**
 * @brief Функция, создающая двумерный массив.
 * @param array - массив.
 * @param lines - количество строк.
@@ -110,12 +118,9 @@ void names_of_random_and_keyboard();
  */
 int main()
 {
-	int int_wide = get_value("Enter array wide: ");
-	check(int_wide);
-	size_t wide = (size_t)(int_wide);
-	int int_height = get_value("Enter array height: ");
-	check(int_height);
-	size_t height = (size_t)(int_height);
+
+	size_t wide = get_parametrs("Enter array wide: ");
+	size_t height = get_parametrs("Enter array height: ");
 	int** array = create_arry(wide, height);
 	names_of_random_and_keyboard();
 	int number = get_value("");
@@ -286,6 +291,20 @@ int find_max_element(int** array, size_t lines, size_t columns)
 		}
 	}
 	return max_element;
+}
+
+int get_parametrs(const char* message)
+{
+	int value;
+	printf("%s", message);
+	int res = scanf_s("%d", &value);
+	if (res != 1 & value < 0)
+	{
+		errno = EIO;
+		perror("Wrong value");
+		abort();
+	}
+	return (size_t)value;
 }
 
 void limits_check(const int minimum_limit, const int maximum_limit)
