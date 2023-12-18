@@ -331,7 +331,6 @@ int counter_1(size_t size, const int* array)
 	int counter_1 = 0;
 	for (size_t i = 0; i < size; i++)
 	{
-		size_t position = i;
 		if (is_one(array[i]))
 		{
 			counter_1++;
@@ -362,12 +361,7 @@ void fill_array_m(size_t size, int* array)
 
 int fill_random(size_t size, int* array, const int minimum_limit, const int maximum_limit)
 {
-	if (maximum_limit < minimum_limit)
-	{
-		errno = EIO;
-		perror("Wrong limits");
-		abort();
-	}
+	limits_check(minimum_limit, maximum_limit);
 	unsigned int ttime = (unsigned int)(time(NULL));
 	srand(ttime);
 	for (size_t i = 0; i < size; i++)
