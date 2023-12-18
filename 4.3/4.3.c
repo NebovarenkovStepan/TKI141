@@ -4,7 +4,7 @@
 #include <float.h>
 #include <errno.h>
 #include <time.h>
-
+ 
 /**
 * @brief Функция, проверяющая границы массива.
 * @param minimum_limit - нижняя граница массива.
