@@ -12,6 +12,11 @@
 */
 int get_parametrs(const char* message);
 
+/**
+* @brief Функция, очищающая массив.
+* @param array - массив.
+* */
+void free_array(int** array);
 
 /**
 * @brief Функция, создающая двумерный массив.
@@ -75,7 +80,7 @@ void print_array_third_point(int** array, size_t lines, size_t columns);
 * @param lines - количество строк.
 * @param columns - количество столбцов.
 */
-void change(int** array, size_t lines, size_t columns);
+void change(int** array, int** new_array, size_t lines, size_t columns);
 
 /**
 * @brief Функция, заполняющая массив.
@@ -140,13 +145,15 @@ int main()
 	}
 	print_array(array, wide, height);
 	puts("------");
-	change(array, wide, height);
+
+	int** new_array = create_arry(wide, height);
+	change(array, new_array, wide, height);
 	puts("------");
+
 	print_array_third_point(array, wide, height);
-	if (array != NULL)
-	{
-		free(array);
-	}
+	
+	free_array(array);
+	free_array(new_array);
 	return 0;
 }
 int get_value(const char* message)
@@ -214,9 +221,8 @@ void fill_random(int** array, const size_t lines, const size_t columns)
 	}
 }
 
-void change(const int** array, size_t lines, size_t columns)
+void change(const int** array, int** new_array, size_t lines, size_t columns)
 {
-	int** new_array = create_arry(lines, columns);
 	for (size_t i = 0; i < lines; i++)
 	{
 		for (size_t j = 0; j < columns; j++)
@@ -309,4 +315,12 @@ int** create_arry(wide, height)
 		array[i] = (int*)malloc(sizeof(int) * height);
 	}
 	return array;
+}
+
+void free_array(int** array)
+{
+	if (array != NULL)
+	{
+		free(array);
+	}
 }
