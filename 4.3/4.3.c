@@ -282,7 +282,7 @@ int get_parametrs(const char* message)
 	int value;
 	printf("%s", message);
 	int res = scanf_s("%d", &value);
-	if (res != 1 & value < 0)
+	if (res != 1 || value <= 0)
 	{
 		errno = EIO;
 		perror("Wrong value");
